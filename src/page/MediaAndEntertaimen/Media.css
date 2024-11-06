@@ -1,0 +1,60 @@
+.button {
+    display: inline-block;
+    cursor: pointer;
+    transition-property: transform;
+    transition: all 0.3s;
+}
+
+.button:hover {
+    transform: translateY(-8px);
+}
+
+
+@media (max-width: 740px) {
+    .main {
+        display: block !important
+    }
+
+    .icon {
+        flex-direction: wrap;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    .servise {
+        justify-content: center;
+    }
+    
+    .btn2 {
+        margin: 16px 20px;
+    }
+
+    img {
+        height: 100% !important;
+    }
+
+    .para {
+        width: 100% !important;
+    }
+
+    .margin-12px {
+        margin: 0px 12px !important; 
+    }
+
+    .mgb-20 {
+        margin-bottom: 20%;
+    }
+}
+
+@media (min-width: 740px) and (max-width:1024px) {
+    .main {
+        display: block !important;
+    }
+
+    .para {
+        width: 100% !important;
+    }
+
+}

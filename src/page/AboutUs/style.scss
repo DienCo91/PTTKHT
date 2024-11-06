@@ -1,0 +1,15 @@
+.title {
+  background-color: #93aaca49;
+  color: #083c59;
+}
+.override {
+  top: 1000px;
+  opacity: 0;
+}
+.title:hover {
+  color: white;
+}
+.title:hover .override {
+  top: 0;
+  opacity: 1;
+}

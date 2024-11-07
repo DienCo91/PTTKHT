@@ -8,6 +8,7 @@ const Navigate = () => {
   const closeNav = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const local = useLocation();
+  const scrollYCurrent = useRef<number>(0);
   useEffect(() => {
     function handleScroll() {
       const scrollY = window.scrollY;
@@ -17,6 +18,13 @@ const Navigate = () => {
       } else {
         scroll.current?.classList.remove('bg-main');
       }
+      console.log('scrollY :>> ', scrollY, scrollYCurrent.current);
+      if (scrollY > scrollYCurrent.current) {
+        scroll.current?.classList.add('opacity-0');
+      } else {
+        scroll.current?.classList.remove('opacity-0');
+      }
+      scrollYCurrent.current = scrollY;
     }
 
     local.pathname === '/' || local.pathname === '/process'
@@ -81,20 +89,15 @@ const Navigate = () => {
               </div>
             </div>
             <div className="mb-[20px] xl:mb-0 relative titleNav">
-              <div className="z-[10] relative xl:z-[13] text-[16px] ">Shop</div>
+              <div className="z-[10] relative xl:z-[13] text-[16px] ">
+                <a href="#shop">Shop</a>
+              </div>
               <div className="hidden xl:flex parent  justify-center items-center  z-[12] p-[1px] absolute border-[2px] border-solid border-[#58c6fa] rounded-full top-1/2 left-1/2  translate-y-50 translate-x-50">
                 <div className="children  z-[9] border-[4px]  border-solid border-[#58c6fa] rounded-full"></div>
               </div>
             </div>
             <div className="mb-[20px] xl:mb-0 relative titleNav">
-              <div
-                onClick={() => {
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                  navigate('/process');
-                }}
-                className="z-[10] xl:z-[13] relative text-[16px] ">
-                About
-              </div>
+              <div className="z-[10] xl:z-[13] relative text-[16px] ">About</div>
               <div className="hidden xl:flex parent  justify-center items-center  z-[12] p-[1px] absolute border-[2px] border-solid border-[#58c6fa] rounded-full top-1/2 left-1/2  translate-y-50 translate-x-50">
                 <div className="children  z-[9] border-[4px]  border-solid border-[#58c6fa] rounded-full"></div>
               </div>

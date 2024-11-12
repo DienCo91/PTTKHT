@@ -1,3 +1,11 @@
+export const optionFilter = [
+  { label: 'shirt' },
+  { label: 'accessory' },
+  { label: 'shoe' },
+  { label: 'bag' },
+  { label: 'sock' },
+];
+
 export const data = [
   {
     productID: 1042669,

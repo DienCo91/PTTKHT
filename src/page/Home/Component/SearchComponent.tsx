@@ -1,12 +1,11 @@
-import { styled, alpha } from '@mui/material/styles';
+import { optionFilter } from '@/util/data';
+import SearchIcon from '@mui/icons-material/Search';
+import { Autocomplete, Button, TextField } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
+import { alpha, styled } from '@mui/material/styles';
+import Toolbar from '@mui/material/Toolbar';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -52,15 +51,56 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function SearchAppBar() {
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, borderRadius: 1, overflow: 'hidden' }}>
       <AppBar position="static">
         <Toolbar>
-          <Search>
+          <Autocomplete
+            options={optionFilter}
+            sx={{ width: 300 }}
+            onInputChange={(_e, value) => console.log(value)}
+            renderInput={params => (
+              <TextField
+                {...params}
+                label="Search by"
+                size="small"
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    color: 'white',
+                    fieldset: {
+                      borderColor: 'white',
+                      opacity: 0.8,
+                    },
+                    '&:hover fieldset': {
+                      borderColor: 'white',
+                      opacity: 1,
+                    },
+                    '&.Mui-focused fieldset': {
+                      borderColor: 'white',
+                    },
+                    '& .MuiAutocomplete-endAdornment .MuiSvgIcon-root': {
+                      color: 'white',
+                    },
+                  },
+                  '& .MuiInputLabel-root': {
+                    color: 'white',
+                  },
+                  '& .MuiInputLabel-root.Mui-focused': {
+                    color: 'white !important', // Màu của label khi focus, đảm bảo giữ màu trắng
+                  },
+                  color: 'white',
+                }}
+              />
+            )}
+          />
+          <Search style={{ marginLeft: 24, marginRight: 24 }}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase placeholder="Search…" inputProps={{ 'aria-label': 'search' }} />
           </Search>
+          <Button variant="contained" sx={{ width: 200, background: '#eeeeee', color: 'black' }}>
+            Search
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>

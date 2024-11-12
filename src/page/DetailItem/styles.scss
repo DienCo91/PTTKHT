@@ -1,0 +1,23 @@
+.image-container {
+    position: relative;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .image-2 {
+    opacity:0 ;
+  }
+  
+  .image-container:hover .image-1 {
+    opacity:0 ;/* Ẩn ảnh đầu tiên khi hover */
+  }
+  
+  .image-container:hover .image-2 {
+    opacity: 1; /* Hiển thị ảnh thứ hai khi hover */
+  }

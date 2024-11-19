@@ -1,9 +1,28 @@
-import { Box, TextField, Typography, Grid, Checkbox, FormControlLabel, Select, MenuItem } from '@mui/material';
+import { Box, Button, Grid, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 
-const CheckoutForm = () => {
+export interface FormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  countryCode: string;
+  phoneNumber: string;
+  flatHouseNo: string;
+  address: string;
+  city: string;
+  state: string;
+  postalCode: string;
+  landmark: string;
+  feeShipping?: string;
+}
+
+interface ICheckoutForm {
+  handleSetFormData: (data: FormData) => void;
+}
+
+const CheckoutForm: React.FC<ICheckoutForm> = ({ handleSetFormData }) => {
   // State cho các trường dữ liệu
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     firstName: '',
     lastName: '',
     email: '',
@@ -39,7 +58,7 @@ const CheckoutForm = () => {
     }
 
     // Logic xử lý khi form hợp lệ
-    console.log('Form submitted:', formData);
+    handleSetFormData(formData);
   };
 
   return (
@@ -183,8 +202,10 @@ const CheckoutForm = () => {
           </Grid>
         </Box>
 
-        <Box mt={3}>
-          <button type="submit">Submit</button>
+        <Box mt={3} sx={{ display: 'flex', justifyContent: 'end' }}>
+          <Button type="submit" variant="contained">
+            Submit
+          </Button>
         </Box>
       </form>
     </Box>

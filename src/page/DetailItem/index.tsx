@@ -13,6 +13,7 @@ const DetailItem = () => {
   const dispatch = useDispatch();
   const navigation = useNavigate();
   const products = useSelector((state: RootState) => state.card.listProducts);
+  const user = useSelector((state: RootState) => state.user.user);
 
   useEffect(() => {
     if (!id) {
@@ -21,6 +22,7 @@ const DetailItem = () => {
   }, [id, navigation]);
 
   const addCart = (item: any) => {
+    if (!user) return;
     const index = products.findIndex(p => p.productID === item.productID);
 
     if (index > -1) {
@@ -30,9 +32,21 @@ const DetailItem = () => {
         ...products.slice(index + 1),
       ];
       toast.success('Product added to card');
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      if (users) {
+        const updatedUsers = users.map(u => (user.name === u.name ? { ...u, card: updatedProducts } : user));
+        localStorage.setItem('users', JSON.stringify(updatedUsers));
+      }
       return dispatch(setProducts(updatedProducts));
     }
     toast.success('Product added to card');
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    if (users) {
+      const updatedUsers = users.map(u =>
+        user.name === u.name ? { ...u, card: [{ ...item, quantity: 1 }, ...products] } : user,
+      );
+      localStorage.setItem('users', JSON.stringify(updatedUsers));
+    }
     return dispatch(setProducts([{ ...item, quantity: 1 }, ...products]));
   };
 

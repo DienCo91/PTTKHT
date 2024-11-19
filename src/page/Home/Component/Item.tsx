@@ -7,6 +7,9 @@ interface IItem {
 
 const Item: React.FC<IItem> = ({ item, style }) => {
   const navigate = useNavigate();
+
+  if (!item) return <div className="w-[calc(25%-20px)]"></div>;
+
   return (
     <div
       className="bg-[#F4F5F7] mb-[24px] rounded-sm w-[calc(25%-20px)] box-border shadow-lg hover:translate-y-[-10px] active:translate-y-[-6px] hover:shadow-[#d8eafe] transition-all duration-[0.16s] ease-in-out cursor-pointer "

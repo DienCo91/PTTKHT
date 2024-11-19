@@ -3,6 +3,8 @@ import Modal from '@mui/material/Modal';
 import * as React from 'react';
 import AvatarUser from './AvatarUser';
 import { Divider, Typography } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/app/store';
 
 interface IModalProfile {
   toggleModalProfile: () => void;
@@ -22,6 +24,8 @@ const style = {
 };
 
 export const ModalProfile: React.FC<IModalProfile> = ({ open, toggleModalProfile }) => {
+  const user = useSelector((state: RootState) => state.user.user);
+
   return (
     <div>
       <Modal
@@ -41,7 +45,7 @@ export const ModalProfile: React.FC<IModalProfile> = ({ open, toggleModalProfile
                 Name
               </Typography>
               <Typography variant="body2" color="textPrimary">
-                your name
+                {user?.name}
               </Typography>
             </Box>
             <Divider />
@@ -51,7 +55,7 @@ export const ModalProfile: React.FC<IModalProfile> = ({ open, toggleModalProfile
                 Email account
               </Typography>
               <Typography variant="body2" color="textPrimary">
-                yourname@gmail.com
+                {user?.email}
               </Typography>
             </Box>
             <Divider />
@@ -61,7 +65,7 @@ export const ModalProfile: React.FC<IModalProfile> = ({ open, toggleModalProfile
                 Mobile number
               </Typography>
               <Typography variant="body2" color="textPrimary">
-                0987654321
+                {user?.phone}
               </Typography>
             </Box>
             <Divider />
@@ -71,7 +75,7 @@ export const ModalProfile: React.FC<IModalProfile> = ({ open, toggleModalProfile
                 Location
               </Typography>
               <Typography variant="body2" color="textPrimary">
-                USA
+                VN
               </Typography>
             </Box>
           </Box>

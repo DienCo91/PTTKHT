@@ -1,11 +1,10 @@
+import { RootState } from '@/app/store';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import DoneIcon from '@mui/icons-material/Done';
-import ErrorIcon from '@mui/icons-material/Error';
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import { Chip, Divider, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import * as React from 'react';
+import { useSelector } from 'react-redux';
 
 interface IModalNotice {
   toggleModalNotice: () => void;
@@ -26,13 +25,6 @@ const style = {
   overflow: 'auto',
 };
 
-const notifications = [
-  { id: 1, name: 'Order #12345', status: 'Shipped', date: '2024-11-10', icon: <LocalShippingIcon />, color: 'primary' },
-  { id: 2, name: 'Order #12346', status: 'Delivered', date: '2024-11-11', icon: <DoneIcon />, color: 'success' },
-  { id: 3, name: 'Order #12347', status: 'Delayed', date: '2024-11-12', icon: <ErrorIcon />, color: 'error' },
-  { id: 4, name: 'Order #12348', status: 'Pending', date: '2024-11-13', icon: <AccessTimeIcon />, color: 'warning' },
-];
-
 const getChipStyles = (color: string) => {
   switch (color) {
     case 'primary':
@@ -49,6 +41,14 @@ const getChipStyles = (color: string) => {
 };
 
 export const ModalNotice: React.FC<IModalNotice> = ({ open, toggleModalNotice }) => {
+  const user = useSelector((state: RootState) => state.user.user);
+  const users = JSON.parse(localStorage.getItem('users') || '[]');
+
+  const currentUser = users.find(u => u.name === user?.name);
+
+  const notifications = currentUser.notice;
+
+  if (!notifications) return;
   return (
     <div>
       <Modal
@@ -60,29 +60,34 @@ export const ModalNotice: React.FC<IModalNotice> = ({ open, toggleModalNotice })
           <Typography textAlign={'center'} fontWeight={'500'} fontSize={24}>
             Notice
           </Typography>
-          {notifications.map(notification => (
-            <React.Fragment key={notification.id}>
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>{notification.icon}</ListItemIcon>
-                  <ListItemText
-                    primary={
-                      <Typography variant="body1" fontWeight="bold">
-                        {notification.name}
-                      </Typography>
-                    }
-                    secondary={
-                      <Typography variant="body2" color="textSecondary">
-                        {notification.date}
-                      </Typography>
-                    }
-                  />
-                  <Chip label={notification.status} size="small" sx={getChipStyles(notification.color)} />
-                </ListItemButton>
-              </ListItem>
-              <Divider />
-            </React.Fragment>
-          ))}
+          {notifications.map(notification => {
+            if (!notification) return;
+            return (
+              <React.Fragment key={notification.id}>
+                <ListItem disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      <AccessTimeIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={
+                        <Typography variant="body1" fontWeight="bold">
+                          {notification.name}
+                        </Typography>
+                      }
+                      secondary={
+                        <Typography variant="body2" color="textSecondary">
+                          {notification.date}
+                        </Typography>
+                      }
+                    />
+                    <Chip label={notification.status} size="small" sx={getChipStyles(notification.color)} />
+                  </ListItemButton>
+                </ListItem>
+                <Divider />
+              </React.Fragment>
+            );
+          })}
         </Box>
       </Modal>
     </div>

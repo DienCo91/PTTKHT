@@ -1,5 +1,5 @@
 import { Box, Button, Modal, Typography } from '@mui/material';
-import React from 'react';
+import React, { useMemo } from 'react';
 import ItemCard from './ItemCard';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
@@ -12,7 +12,16 @@ interface IModalCard {
 
 const ModalCard: React.FC<IModalCard> = ({ open, handleClose }) => {
   const navigate = useNavigate();
-  const products = useSelector((state: RootState) => state.card.listProducts);
+  const user = useSelector((state: RootState) => state.user.user);
+  const listProducts = useSelector((state: RootState) => state.card.listProducts);
+
+  const users = JSON.parse(localStorage.getItem('users') || '[]');
+  const productNew = useMemo(() => {
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const currentUsers = users.find(u => u.name === user?.name);
+
+    return currentUsers?.card || [];
+  }, [user, users, listProducts]);
 
   return (
     <Modal open={open} onClose={handleClose}>
@@ -25,7 +34,6 @@ const ModalCard: React.FC<IModalCard> = ({ open, handleClose }) => {
           boxShadow: 24,
           backgroundColor: 'white',
           width: '50%',
-          height: '60%',
           borderRadius: 2,
           padding: 2,
           outline: 'none',
@@ -33,17 +41,24 @@ const ModalCard: React.FC<IModalCard> = ({ open, handleClose }) => {
         <Typography textAlign={'center'} fontSize={24}>
           Cart
         </Typography>
-        <Box sx={{ minHeight: 200, overflow: 'auto', height: 300 }}>
-          {products.length ? (
-            products.map(item => <ItemCard key={item?.productID} item={item} />)
+        <Box sx={{ minHeight: 200, overflow: 'auto', height: 400 }}>
+          {productNew.length ? (
+            productNew.map(item => <ItemCard key={item?.productID} item={item} />)
           ) : (
             <Typography textAlign={'center'} padding={10} height={100} fontSize={16}>
               Not Found !
             </Typography>
           )}
         </Box>
-        {products.length > 0 && (
-          <Button sx={{ textAlign: 'right', mt: 2 }} fullWidth variant="contained" onClick={() => navigate('/payment')}>
+        {productNew.length > 0 && (
+          <Button
+            sx={{ textAlign: 'right', mt: 2 }}
+            fullWidth
+            variant="contained"
+            onClick={() => {
+              navigate('/payment', { state: { data: productNew } });
+              handleClose();
+            }}>
             Payment
           </Button>
         )}

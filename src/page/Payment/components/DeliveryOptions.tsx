@@ -1,11 +1,14 @@
-import React from 'react';
-import { Box, Radio, RadioGroup, FormControlLabel, Typography } from '@mui/material';
+import { RootState } from '@/app/store';
+import { setFeeShip } from '@/feature/card/cardSlice';
+import { Box, FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 
 const DeliveryOptions = () => {
-  const [value, setValue] = React.useState('standard');
+  const dispatch = useDispatch();
+  const feeShipping = useSelector((state: RootState) => state.card.feeShip);
 
-  const handleChange = event => {
-    setValue(event.target.value);
+  const handleChange = (event: any) => {
+    dispatch(setFeeShip(event.target.value));
   };
 
   return (
@@ -14,10 +17,10 @@ const DeliveryOptions = () => {
         Delivery Options
       </Typography>
 
-      <RadioGroup value={value} onChange={handleChange}>
+      <RadioGroup value={feeShipping} onChange={handleChange}>
         <Box sx={{ mb: 1.5 }}>
           <FormControlLabel
-            value="standard"
+            value="0"
             control={
               <Radio
                 sx={{
@@ -46,7 +49,7 @@ const DeliveryOptions = () => {
 
         <Box sx={{ mb: 1.5 }}>
           <FormControlLabel
-            value="express"
+            value="40.000 VND"
             control={
               <Radio
                 sx={{
@@ -75,7 +78,7 @@ const DeliveryOptions = () => {
 
         <Box>
           <FormControlLabel
-            value="same-day"
+            value="90.000 VND"
             control={
               <Radio
                 sx={{

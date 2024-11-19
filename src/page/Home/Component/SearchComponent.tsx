@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import InputBase from '@mui/material/InputBase';
 import { alpha, styled } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
+import { useState } from 'react';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -49,7 +50,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function SearchAppBar() {
+interface ISearchAppBar {
+  handleSearch: ({ val, type }: { val: string; type: string }) => void;
+}
+
+export default function SearchAppBar({ handleSearch }: ISearchAppBar) {
+  const [txt, setTxt] = useState<string>('');
+  const [searchBy, setSearchBy] = useState<string>('');
+
   return (
     <Box sx={{ flexGrow: 1, borderRadius: 1, overflow: 'hidden' }}>
       <AppBar position="static">
@@ -57,7 +65,7 @@ export default function SearchAppBar() {
           <Autocomplete
             options={optionFilter}
             sx={{ width: 300 }}
-            onInputChange={(_e, value) => console.log(value)}
+            onInputChange={(_e, value) => setSearchBy(value)}
             renderInput={params => (
               <TextField
                 {...params}
@@ -85,7 +93,7 @@ export default function SearchAppBar() {
                     color: 'white',
                   },
                   '& .MuiInputLabel-root.Mui-focused': {
-                    color: 'white !important', // Màu của label khi focus, đảm bảo giữ màu trắng
+                    color: 'white !important',
                   },
                   color: 'white',
                 }}
@@ -96,9 +104,17 @@ export default function SearchAppBar() {
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
-            <StyledInputBase placeholder="Search…" inputProps={{ 'aria-label': 'search' }} />
+            <StyledInputBase
+              value={txt}
+              placeholder="Search…"
+              inputProps={{ 'aria-label': 'search' }}
+              onChange={e => setTxt(e.target.value)}
+            />
           </Search>
-          <Button variant="contained" sx={{ width: 200, background: '#eeeeee', color: 'black' }}>
+          <Button
+            variant="contained"
+            sx={{ width: 200, background: '#eeeeee', color: 'black' }}
+            onClick={() => handleSearch({ val: txt, type: searchBy })}>
             Search
           </Button>
         </Toolbar>

@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { Outlet, useLocation, useNavigate, Navigate as NavigateCom } from 'react-router-dom';
 import logo from '../../assets/img/logo.png';
 import ModalCard from './components/ModalCard';
 import './style.scss';
@@ -19,7 +19,8 @@ const Navigate = () => {
   const [open, setOpen] = useState(false);
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
 
-  const products = useSelector((state: RootState) => state.card.listProducts);
+  const user = useSelector((state: RootState) => state.user.user);
+  const listProducts = useSelector((state: RootState) => state.card.listProducts);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -60,6 +61,17 @@ const Navigate = () => {
     closeNav.current?.classList.add(...'right-[-300px] opacity-0 pointer-events-none'.split(' '));
     showNav.current?.classList.remove('hidden');
   };
+
+  const users = JSON.parse(localStorage.getItem('users') || '[]');
+
+  const totalCard = useMemo(() => {
+    const currentUsers = users.find(u => u.name === user?.name);
+
+    return currentUsers?.card?.length || 0;
+  }, [user, users, listProducts]);
+
+  if (local.pathname === '/login') return <Outlet />;
+  if (!user) return <NavigateCom to="/login" state={{ from: location.pathname }} replace={true} />;
 
   return (
     <>
@@ -126,9 +138,9 @@ const Navigate = () => {
                 className="bi bi-cart2 text-[20px] text-white hover:opacity-[0.8] cursor-pointer"
                 onClick={handleOpen}
               />
-              {!!products.length && (
+              {!!totalCard && (
                 <span className="absolute top-[-8px] left-[12px] bg-[#ff6879b6] rounded-full px-2 text-[14px] text-white">
-                  {products.length}
+                  {totalCard}
                 </span>
               )}
             </div>

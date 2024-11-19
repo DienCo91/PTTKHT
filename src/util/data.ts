@@ -1,10 +1,4 @@
-export const optionFilter = [
-  { label: 'shirt' },
-  { label: 'accessory' },
-  { label: 'shoe' },
-  { label: 'bag' },
-  { label: 'sock' },
-];
+export const optionFilter = [{ label: 'shirt' }, { label: 'accessory' }, { label: 'shoe' }, { label: 'other' }];
 
 export const data = [
   {

@@ -17,42 +17,6 @@ import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 const Invoice = () => {
-  const invoiceData = {
-    issued: '01 Aug, 2023',
-    due: '15 Aug, 2023',
-    billedTo: {
-      name: 'Company Name',
-      address: 'Company address',
-      location: 'City, Country - 00000',
-      phone: '+0 (000) 123-4567',
-    },
-    from: {
-      name: 'Panda, Inc',
-      address: 'Business address',
-      location: 'City, State, IN - 000 000',
-      taxId: 'TAX ID 00XXXXX1234X0XX',
-    },
-    services: [
-      {
-        name: 'Service name',
-        description: 'Description • Hours log',
-        qty: 2,
-        rate: 100.0,
-        total: 200.0,
-      },
-      {
-        name: 'Service name',
-        description: 'Description',
-        qty: 2,
-        rate: 100.0,
-        total: 200.0,
-      },
-    ],
-    subtotal: 400.0,
-    tax: 0.0,
-    total: 400.0,
-  };
-
   const feeShipping = useSelector((state: RootState) => state.card.feeShip);
 
   const fee = useMemo(() => {
@@ -121,7 +85,7 @@ const Invoice = () => {
               {bill.address}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {bill.city + ',' + bill.state}
+              {bill.city + ', ' + bill.state}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               {bill.phoneNumber}

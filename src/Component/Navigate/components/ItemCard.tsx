@@ -37,9 +37,9 @@ const ItemCard: React.FC<IItemCard> = ({ item }) => {
           {`${item?.productPrice}`}
         </Typography>
         {item?.quantity && <Typography variant="body2">Quantity : {item?.quantity}</Typography>}
-        <Typography textAlign={'right'} width={'100%'}>
+        {/* <Typography textAlign={'right'} width={'100%'}>
           <Button onClick={handleRemoveItem}>Remove</Button>
-        </Typography>
+        </Typography> */}
       </CardContent>
     </Card>
   );

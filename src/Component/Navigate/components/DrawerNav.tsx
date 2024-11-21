@@ -1,16 +1,15 @@
+import { RootState } from '@/app/store';
+import { setUser } from '@/feature/user/userSlice';
 import { Logout } from '@mui/icons-material';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import PersonIcon from '@mui/icons-material/Person';
 import { Badge, Box, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import AvatarUser from './AvatarUser';
 import { ModalNotice } from './ModalNotice';
 import { ModalProfile } from './ModalProfile';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from '@/feature/user/userSlice';
-import { RootState } from '@/app/store';
 
 interface IDrawerNav {
   open: boolean;
@@ -35,7 +34,7 @@ const DrawerNav: React.FC<IDrawerNav> = ({ open, toggleDrawer }) => {
   const totalNotice = useMemo(() => {
     const currentUsers = users.find(u => u.name === user?.name);
 
-    return currentUsers?.notice?.length - 1 || 0;
+    return currentUsers?.notice?.length || 0;
   }, [user, users]);
 
   return (

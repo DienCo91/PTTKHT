@@ -52,8 +52,8 @@ const StepperPayment = () => {
   const formatDateToYYYYMMDD = () => {
     const date = new Date();
     const year = date.getFullYear(); // Lấy năm
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0 -> cần +1
-    const day = String(date.getDate()).padStart(2, '0'); // Lấy ngày và đảm bảo 2 chữ số
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
 
     return `${year}-${month}-${day}`;
   };
@@ -86,7 +86,7 @@ const StepperPayment = () => {
               ...u,
               card: [],
               notice: [
-                u?.notice ? u?.notice : null,
+                ...(u?.notice || []),
                 {
                   id: generateIdFromDateTime(),
                   name: generateIdFromDateTime(),
@@ -96,7 +96,7 @@ const StepperPayment = () => {
                 },
               ],
             }
-          : user,
+          : u,
       );
       localStorage.setItem('users', JSON.stringify(updatedUsers));
       dispatch(setProducts([]));

@@ -22,6 +22,7 @@ export const data = [
     category: 'Football Equipment',
     isBuyOnline: false,
     isLimitedEdition: true,
+    quantity: 222,
   },
   {
     productID: 1000492,
@@ -44,6 +45,7 @@ export const data = [
     category: 'Footwear | Lên chân',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 214,
   },
   {
     productID: 1000493,
@@ -66,6 +68,7 @@ export const data = [
     category: 'Footwear | Lên chân',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 402,
   },
   {
     productID: 992072,
@@ -88,6 +91,7 @@ export const data = [
     category: 'Top | Nửa trên',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 216,
   },
   {
     productID: 992073,
@@ -110,6 +114,7 @@ export const data = [
     category: 'Top | Nửa trên',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 451,
   },
   {
     productID: 992069,
@@ -132,6 +137,7 @@ export const data = [
     category: 'Top | Nửa trên',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 381,
   },
   {
     productID: 992071,
@@ -154,6 +160,7 @@ export const data = [
     category: 'Top | Nửa trên',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 325,
   },
   {
     productID: 992070,
@@ -176,6 +183,7 @@ export const data = [
     category: 'Top | Nửa trên',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 306,
   },
   {
     productID: 992055,
@@ -198,6 +206,7 @@ export const data = [
     category: 'Top | Nửa trên',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 279,
   },
   {
     productID: 988591,
@@ -220,6 +229,7 @@ export const data = [
     category: 'Top | Nửa trên',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 396,
   },
   {
     productID: 992053,
@@ -242,6 +252,7 @@ export const data = [
     category: 'Top | Nửa trên',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 364,
   },
   {
     productID: 992054,
@@ -264,6 +275,7 @@ export const data = [
     category: 'Top | Nửa trên',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 243,
   },
   {
     productID: 992052,
@@ -286,6 +298,7 @@ export const data = [
     category: 'Top | Nửa trên',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 415,
   },
   {
     productID: 1034326,
@@ -308,6 +321,7 @@ export const data = [
     category: 'Footwear | Lên chân',
     isBuyOnline: false,
     isLimitedEdition: true,
+    quantity: 363,
   },
   {
     productID: 1034325,
@@ -330,6 +344,7 @@ export const data = [
     category: 'Footwear | Lên chân',
     isBuyOnline: false,
     isLimitedEdition: true,
+    quantity: 407,
   },
   {
     productID: 994533,
@@ -352,6 +367,7 @@ export const data = [
     category: 'Top | Nửa trên',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 464,
   },
   {
     productID: 988915,
@@ -374,6 +390,7 @@ export const data = [
     category: 'Top | Nửa trên',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 430,
   },
   {
     productID: 962345,
@@ -403,6 +420,7 @@ export const data = [
     category: 'Footwear | Lên chân',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 213,
   },
   {
     productID: 962344,
@@ -432,6 +450,7 @@ export const data = [
     category: 'Footwear | Lên chân',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 496,
   },
   {
     productID: 962343,
@@ -461,6 +480,7 @@ export const data = [
     category: 'Footwear | Lên chân',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 248,
   },
   {
     productID: 955079,
@@ -490,6 +510,7 @@ export const data = [
     category: 'Accessories | Phụ kiện',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 448,
   },
   {
     productID: 955078,
@@ -519,6 +540,7 @@ export const data = [
     category: 'Accessories | Phụ kiện',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 261,
   },
   {
     productID: 955077,
@@ -548,6 +570,7 @@ export const data = [
     category: 'Accessories | Phụ kiện',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 294,
   },
   {
     productID: 962410,
@@ -570,6 +593,7 @@ export const data = [
     category: 'Footwear | Lên chân',
     isBuyOnline: false,
     isLimitedEdition: true,
+    quantity: 205,
   },
   {
     productID: 899186,
@@ -599,6 +623,7 @@ export const data = [
     category: 'Footwear | Lên chân',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 320,
   },
   {
     productID: 899185,
@@ -628,6 +653,7 @@ export const data = [
     category: 'Footwear | Lên chân',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 225,
   },
   {
     productID: 919438,
@@ -650,6 +676,7 @@ export const data = [
     category: 'Accessories | Phụ kiện',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 465,
   },
   {
     productID: 919439,
@@ -672,6 +699,7 @@ export const data = [
     category: 'Accessories | Phụ kiện',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 367,
   },
   {
     productID: 919440,
@@ -694,6 +722,7 @@ export const data = [
     category: 'Accessories | Phụ kiện',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 494,
   },
   {
     productID: 919441,
@@ -716,6 +745,7 @@ export const data = [
     category: 'Accessories | Phụ kiện',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 464,
   },
   {
     productID: 919442,
@@ -738,6 +768,7 @@ export const data = [
     category: 'Accessories | Phụ kiện',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 435,
   },
   {
     productID: 919443,
@@ -760,6 +791,7 @@ export const data = [
     category: 'Accessories | Phụ kiện',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 430,
   },
   {
     productID: 919436,
@@ -782,6 +814,7 @@ export const data = [
     category: 'Accessories | Phụ kiện',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 348,
   },
   {
     productID: 919437,
@@ -804,6 +837,7 @@ export const data = [
     category: 'Accessories | Phụ kiện',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 469,
   },
   {
     productID: 924648,
@@ -833,6 +867,7 @@ export const data = [
     category: 'Accessories | Phụ kiện',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 401,
   },
   {
     productID: 899187,
@@ -862,6 +897,7 @@ export const data = [
     category: 'Footwear | Lên chân',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 449,
   },
   {
     productID: 775846,
@@ -891,6 +927,7 @@ export const data = [
     category: 'Footwear | Lên chân',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 258,
   },
   {
     productID: 823071,
@@ -913,6 +950,7 @@ export const data = [
     category: 'Top | Nửa trên',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 201,
   },
   {
     productID: 823070,
@@ -935,6 +973,7 @@ export const data = [
     category: 'Top | Nửa trên',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 258,
   },
   {
     productID: 829826,
@@ -957,5 +996,6 @@ export const data = [
     category: 'Top | Nửa trên',
     isBuyOnline: false,
     isLimitedEdition: false,
+    quantity: 265,
   },
 ];

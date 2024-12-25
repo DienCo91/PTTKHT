@@ -16,6 +16,7 @@ const ModalCard: React.FC<IModalCard> = ({ open, handleClose }) => {
   const listProducts = useSelector((state: RootState) => state.card.listProducts);
 
   const users = JSON.parse(localStorage.getItem('users') || '[]');
+
   const productNew = useMemo(() => {
     const users = JSON.parse(localStorage.getItem('users') || '[]');
     const currentUsers = users.find(u => u.name === user?.name);

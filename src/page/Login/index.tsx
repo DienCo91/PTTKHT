@@ -20,12 +20,11 @@ const Login: React.FC = () => {
 
   useEffect(() => {
     try {
-      // Lấy dữ liệu từ Local Storage và xử lý trường hợp không có user
       const storedUsers = JSON.parse(localStorage.getItem('users') || '[]');
       setUsers(storedUsers);
     } catch (error) {
       console.error('Lỗi khi đọc dữ liệu từ Local Storage:', error);
-      setUsers([]); // Nếu lỗi, gán danh sách rỗng
+      setUsers([]);
     }
   }, []);
 
@@ -143,7 +142,7 @@ const Login: React.FC = () => {
           <Box sx={{ mt: 2 }}>
             <Typography variant="body2">
               Don't have an account?
-              <Link href="#" onClick={() => setTabIndex(1)}>
+              <Link href="#" onClick={() => setTabIndex(1)} marginLeft={1}>
                 Register
               </Link>
             </Typography>

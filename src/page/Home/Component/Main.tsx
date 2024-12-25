@@ -8,6 +8,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import './style.scss';
 import Trending from './Trending';
+import { Product } from '@/util/types';
 
 const TYPE = {
   shirt: 'Top | Nửa trên',
@@ -20,7 +21,7 @@ const Main = () => {
   const showTag = useRef<HTMLDivElement>(null);
   const showCommit = useRef<HTMLDivElement>(null);
 
-  const [dataProduct, setDataProduct] = useState<any>(data);
+  const [dataProduct, setDataProduct] = useState<Product[]>(data as Product[]);
 
   useEffect(() => {
     function handleScroll() {
@@ -59,7 +60,7 @@ const Main = () => {
       const itemsToAdd = 4 - remainder;
       newData = [...newData, ...Array(itemsToAdd).fill(null)];
     }
-    setDataProduct(newData);
+    setDataProduct(newData as Product[]);
   };
 
   return (
@@ -76,7 +77,7 @@ const Main = () => {
         ref={showTag}>
         <h1 className="text-[32px] font-bold mb-[20px]">Shop</h1>
         <SearchAppBar handleSearch={handleSearch} />
-        <div className="flex flex-wrap justify-between mt-[20px]">
+        <div className="flex flex-wrap justify-start mt-[20px]">
           {/* item */}
           {dataProduct.map((item, index) => (
             <Item item={item} key={index} />

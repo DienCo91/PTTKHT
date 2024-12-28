@@ -6,6 +6,7 @@ import './style.scss';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
 import DrawerNav from './components/DrawerNav';
+import { User } from '@/feature/user/userSlice';
 
 const Navigate = () => {
   const scroll = useRef<HTMLDivElement>(null);
@@ -65,7 +66,7 @@ const Navigate = () => {
   const users = JSON.parse(localStorage.getItem('users') || '[]');
 
   const totalCard = useMemo(() => {
-    const currentUsers = users.find(u => u.name === user?.name);
+    const currentUsers = (users as User[]).find(u => u.name === user?.name);
 
     return currentUsers?.card?.length || 0;
   }, [user, users, listProducts]);

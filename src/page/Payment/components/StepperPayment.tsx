@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
 import { setProducts } from '@/feature/card/cardSlice';
+import { User } from '@/feature/user/userSlice';
 
 const steps = ['Shipping', 'Delivery', 'Payment'];
 const StepperPayment = () => {
@@ -80,7 +81,7 @@ const StepperPayment = () => {
   const handleReset = () => {
     const users = JSON.parse(localStorage.getItem('users') || '[]');
     if (users) {
-      const updatedUsers = users.map(u =>
+      const updatedUsers = (users as User[]).map(u =>
         user?.name === u.name
           ? {
               ...u,

@@ -13,10 +13,11 @@ import Invoice from './page/Invoice/Invoice';
 import Login from './page/Login';
 import { useEffect } from 'react';
 import { data, setProductAll } from './util/data';
+import { Product } from './util/types';
 
 function App() {
   useEffect(() => {
-    setProductAll(data);
+    setProductAll(data as Product[]);
   }, []);
 
   return (

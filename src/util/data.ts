@@ -1,3 +1,7 @@
+import { User } from '@/feature/user/userSlice';
+import { Product } from './types';
+import { Comment } from '@/page/DetailItem/components/CommentWithRating';
+
 export const optionFilter = [{ label: 'shirt' }, { label: 'accessory' }, { label: 'shoe' }, { label: 'other' }];
 
 export const data = [
@@ -1004,15 +1008,15 @@ export const getAllUser = () => {
   return JSON.parse(localStorage.getItem('users') || '[]');
 };
 
-export const setUser = users => {
+export const setUser = (users: User[]) => {
   localStorage.setItem('users', JSON.stringify(users));
 };
 
-export const setProductAll = products => {
+export const setProductAll = (products: Product[]) => {
   localStorage.setItem('products', JSON.stringify(products));
 };
 
-export const setComment = comments => {
+export const setComment = (comments: Comment[]) => {
   localStorage.setItem('comments', JSON.stringify(comments));
 };
 

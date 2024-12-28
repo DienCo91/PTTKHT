@@ -1,12 +1,23 @@
+import { Product } from '@/util/types';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
-interface User {
+interface INotice {
+  id: string;
+  status: string;
+  date: string;
+  color: string;
+  name: string;
+}
+
+export interface User {
   name: string;
   email: string;
   password: string;
   confirmPassword: string;
   phone: string;
+  notice: INotice[];
+  card: Product[];
 }
 // Define a type for the slice state
 interface UserState {

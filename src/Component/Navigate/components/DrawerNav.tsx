@@ -1,5 +1,5 @@
 import { RootState } from '@/app/store';
-import { setUser } from '@/feature/user/userSlice';
+import { setUser, User } from '@/feature/user/userSlice';
 import { Logout } from '@mui/icons-material';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
@@ -32,7 +32,7 @@ const DrawerNav: React.FC<IDrawerNav> = ({ open, toggleDrawer }) => {
   const users = JSON.parse(localStorage.getItem('users') || '[]');
 
   const totalNotice = useMemo(() => {
-    const currentUsers = users.find(u => u.name === user?.name);
+    const currentUsers = (users as User[]).find(u => u.name === user?.name);
 
     return currentUsers?.notice?.length || 0;
   }, [user, users]);

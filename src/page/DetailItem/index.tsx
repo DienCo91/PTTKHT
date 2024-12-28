@@ -9,6 +9,7 @@ import './styles.scss';
 import { toast } from 'react-toastify';
 import CommentWithRating from './components/CommentWithRating';
 import { Product } from '@/util/types';
+import { User } from '@/feature/user/userSlice';
 
 const DetailItem = () => {
   const { id } = useParams();
@@ -36,7 +37,9 @@ const DetailItem = () => {
       toast.success('Product added to card');
       const users = JSON.parse(localStorage.getItem('users') || '[]');
       if (users) {
-        const updatedUsers = users.map(u => (user.name === u.name ? { ...u, card: updatedProducts } : user));
+        const updatedUsers = (users as User[]).map(u =>
+          user.name === u.name ? { ...u, card: updatedProducts } : user,
+        );
         localStorage.setItem('users', JSON.stringify(updatedUsers));
       }
       return dispatch(setProducts(updatedProducts));
@@ -44,7 +47,7 @@ const DetailItem = () => {
     toast.success('Product added to card');
     const users = JSON.parse(localStorage.getItem('users') || '[]');
     if (users) {
-      const updatedUsers = users.map(u =>
+      const updatedUsers = (users as User[]).map(u =>
         user.name === u.name ? { ...u, card: [{ ...item, quantity: 1 }, ...products] } : user,
       );
       localStorage.setItem('users', JSON.stringify(updatedUsers));

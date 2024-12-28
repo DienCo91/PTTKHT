@@ -1,5 +1,5 @@
-import { Box, Button, Grid, MenuItem, Select, TextField, Typography } from '@mui/material';
-import { useState } from 'react';
+import { Box, Button, Grid, MenuItem, Select, SelectChangeEvent, TextField, Typography } from '@mui/material';
+import { ChangeEvent, FormEvent, useState } from 'react';
 
 export interface FormData {
   firstName: string;
@@ -37,21 +37,24 @@ const CheckoutForm: React.FC<ICheckoutForm> = ({ handleSetFormData }) => {
   });
 
   // Hàm cập nhật state
-  const handleChange = e => {
-    const { name, value, type, checked } = e.target;
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
+    const { name, value } = e.target as HTMLInputElement; // Ép kiểu để xử lý giá trị chính xác
     setFormData(prevData => ({
       ...prevData,
-      [name]: type === 'checkbox' ? checked : value,
+      [name as keyof FormData]: value,
     }));
   };
 
   // Hàm kiểm tra xem các trường có hợp lệ hay không
-  const handleSubmit = e => {
-    e.preventDefault();
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
     // Kiểm tra các trường yêu cầu đã được điền đầy đủ
-    for (let key in formData) {
-      if (formData[key] === '' && key !== 'sameAddress') {
+    for (const key in formData) {
+      if (
+        (formData[key as keyof FormData] === '' || formData[key as keyof FormData] === undefined) &&
+        key !== 'feeShipping'
+      ) {
         alert(`Please fill in the ${key}`);
         return;
       }

@@ -1,4 +1,5 @@
 import { RootState } from '@/app/store';
+import { Product } from '@/util/types';
 import {
   Box,
   Divider,
@@ -29,20 +30,20 @@ const Invoice = () => {
   const data = location.state;
   const bill = data.data;
 
-  const addDaysToDate = (baseDate, daysToAdd) => {
+  const addDaysToDate = (baseDate: Date, daysToAdd: number) => {
     const newDate = new Date(baseDate);
     newDate.setDate(newDate.getDate() + daysToAdd);
     return newDate;
   };
 
-  const formatDate = date => {
+  const formatDate = (date: Date) => {
     const day = String(date.getDate()).padStart(2, '0');
     const month = date.toLocaleString('en-US', { month: 'short' });
     const year = date.getFullYear();
     return `${day} ${month}, ${year}`;
   };
 
-  const total = bill.listProducts.reduce((sum, item) => {
+  const total = bill.listProducts.reduce((sum: number, item: Product) => {
     const numericValue = Number(item.productPrice.replace(/\./g, '').replace(' VND', ''));
     return sum + numericValue * item.quantity;
   }, 0);
@@ -120,12 +121,12 @@ const Invoice = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {bill.listProducts.map((service, index) => (
+            {(bill.listProducts as Product[]).map((service, index: number) => (
               <TableRow key={index}>
                 <TableCell>
                   <Typography variant="body1">{service.productName}</Typography>
                 </TableCell>
-                <TableCell align="right">{service.qty}</TableCell>
+                <TableCell align="right">{service.quantity}</TableCell>
                 <TableCell align="right">{service.productPrice}</TableCell>
                 <TableCell align="right">{service.productPrice}</TableCell>
               </TableRow>

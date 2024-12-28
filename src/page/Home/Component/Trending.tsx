@@ -2,6 +2,7 @@ import { data } from '@/util/data';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Item from './Item';
+import { Product } from '@/util/types';
 
 const Trending = () => {
   return (
@@ -18,7 +19,7 @@ const Trending = () => {
         loop
         navigation={true}
         modules={[Autoplay, Pagination, Navigation]}>
-        {data.slice(6, 20).map(item => (
+        {(data as Product[]).map(item => (
           <SwiperSlide style={{ marginRight: 20, marginLeft: 20 }} key={item.productID}>
             <div className="flex">
               <Item item={item} key={item.productID} style={{ width: '100%' }} />

@@ -1,4 +1,4 @@
-import { setUser } from '@/feature/user/userSlice';
+import { setUser, User } from '@/feature/user/userSlice';
 import { Box, Button, Container, Link, Tab, Tabs, TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 const Login: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [users, setUsers] = useState<any>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [tabIndex, setTabIndex] = useState(0);
   const [formData, setFormData] = useState({
     name: '',
@@ -38,7 +38,7 @@ const Login: React.FC = () => {
     if (tabIndex === 0) {
       const storedUsers = JSON.parse(localStorage.getItem('users') || '[]');
       if (storedUsers) {
-        const user = storedUsers.find((i: any) => i.name === formData.name && i.password === formData.password);
+        const user = (storedUsers as User[]).find(i => i.name === formData.name && i.password === formData.password);
         if (user) {
           dispatch(setUser(user));
           navigate('/');
@@ -72,7 +72,11 @@ const Login: React.FC = () => {
         <Typography variant="h5" component="h1" gutterBottom>
           {tabIndex === 0 ? 'Login' : 'Register'}
         </Typography>
-        <Tabs value={tabIndex} onChange={(event, newValue) => setTabIndex(newValue)} variant="fullWidth" sx={{ mb: 3 }}>
+        <Tabs
+          value={tabIndex}
+          onChange={(_event, newValue) => setTabIndex(newValue)}
+          variant="fullWidth"
+          sx={{ mb: 3 }}>
           <Tab label="Login" />
           <Tab label="Register" />
         </Tabs>

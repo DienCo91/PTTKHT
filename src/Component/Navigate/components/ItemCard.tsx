@@ -1,9 +1,10 @@
 import { RootState } from '@/app/store';
+import { User } from '@/feature/user/userSlice';
 import { getAllUser, setUser } from '@/util/data';
 import { Product } from '@/util/types';
 import { Box, Button, Card, CardContent, CardMedia, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 interface IItemCard {
   item: Product;
@@ -17,21 +18,21 @@ const ItemCard: React.FC<IItemCard> = ({ item, setIsRemove }) => {
 
   const updateItemCard = (q: number) => {
     const users = getAllUser();
-    const filterUser = users.filter(u => u.name !== user?.name);
-    const currentUsers = users.find(u => u.name === user?.name);
-    const cardFilter = currentUsers.card.filter(c => c.productID !== item.productID);
+    const filterUser = (users as User[]).filter(u => u.name !== user?.name);
+    const currentUsers = (users as User[]).find(u => u.name === user?.name);
+    const cardFilter = currentUsers?.card.filter(c => c.productID !== item.productID);
 
-    const currentUsersNew = { ...currentUsers, card: [{ ...item, quantity: q }, ...cardFilter] };
+    const currentUsersNew = { ...(currentUsers as User), card: [{ ...item, quantity: q }, ...(cardFilter || [])] };
 
     setUser([currentUsersNew, ...filterUser]);
   };
 
   const handleRemoveItem = () => {
     const users = getAllUser();
-    const filterUser = users.filter(u => u.name !== user?.name);
-    const currentUsers = users.find(u => u.name === user?.name);
-    const cardFilter = currentUsers.card.filter(c => c.productID !== item.productID);
-    const currentUsersNew = { ...currentUsers, card: [...cardFilter] };
+    const filterUser = (users as User[]).filter(u => u.name !== user?.name);
+    const currentUsers = (users as User[]).find(u => u.name === user?.name);
+    const cardFilter = currentUsers?.card.filter(c => c.productID !== item.productID);
+    const currentUsersNew = { ...(currentUsers as User), card: [...(cardFilter || [])] };
     setUser([currentUsersNew, ...filterUser]);
     setIsRemove(pre => !pre);
   };

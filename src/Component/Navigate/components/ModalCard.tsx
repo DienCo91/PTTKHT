@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
 import { useNavigate } from 'react-router-dom';
 import { getAllUser } from '@/util/data';
+import { User } from '@/feature/user/userSlice';
 
 interface IModalCard {
   open: boolean;
@@ -20,7 +21,7 @@ const ModalCard: React.FC<IModalCard> = ({ open, handleClose }) => {
   const users = getAllUser();
 
   const productNew = useMemo(() => {
-    const currentUsers = users.find(u => u.name === user?.name);
+    const currentUsers = (users as User[]).find(u => u.name === user?.name);
 
     return currentUsers?.card || [];
   }, [user, users, listProducts, isRemove]);

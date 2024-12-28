@@ -27,7 +27,7 @@ const StyledTextField = styled(TextField)({
 const PaymentMethods = () => {
   const [value, setValue] = React.useState('cash');
 
-  const handleChange = event => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
 

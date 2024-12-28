@@ -1,4 +1,5 @@
 import { RootState } from '@/app/store';
+import { User } from '@/feature/user/userSlice';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { Chip, Divider, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
@@ -44,9 +45,9 @@ export const ModalNotice: React.FC<IModalNotice> = ({ open, toggleModalNotice })
   const user = useSelector((state: RootState) => state.user.user);
   const users = JSON.parse(localStorage.getItem('users') || '[]');
 
-  const currentUser = users.find(u => u.name === user?.name);
+  const currentUser = (users as User[]).find(u => u.name === user?.name);
 
-  const notifications = currentUser.notice;
+  const notifications = currentUser?.notice;
 
   if (!notifications) return;
   return (
@@ -63,7 +64,7 @@ export const ModalNotice: React.FC<IModalNotice> = ({ open, toggleModalNotice })
           {notifications.map(notification => {
             if (!notification) return;
             return (
-              <React.Fragment key={notification.id}>
+              <React.Fragment key={notification?.id || ''}>
                 <ListItem disablePadding>
                   <ListItemButton>
                     <ListItemIcon>

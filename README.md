@@ -1,2 +1,2 @@
 # PTTKHT
-deploy :pttkht-owxa.vercel.app
+deploy : pttkht-owxa.vercel.app

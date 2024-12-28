@@ -1,2 +1,2 @@
 # PTTKHT
-deploy : https://pttkht-owxa.vercel.app/login
+deploy :pttkht-owxa.vercel.app

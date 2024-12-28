@@ -27,28 +27,17 @@ const DetailItem = () => {
   const addCart = (item: Product) => {
     if (!user) return;
     const index = products.findIndex(p => p.productID === item.productID);
+    // console.log('🚀 ~ addCart ~ products:', products);
 
     if (index > -1) {
-      const updatedProducts = [
-        ...products.slice(0, index),
-        { ...products[index], quantity: products[index].quantity + 1 },
-        ...products.slice(index + 1),
-      ];
-      toast.success('Product added to card');
-      const users = JSON.parse(localStorage.getItem('users') || '[]');
-      if (users) {
-        const updatedUsers = (users as User[]).map(u =>
-          user.name === u.name ? { ...u, card: updatedProducts } : user,
-        );
-        localStorage.setItem('users', JSON.stringify(updatedUsers));
-      }
-      return dispatch(setProducts(updatedProducts));
+      return toast.warn('Product added to card');
     }
     toast.success('Product added to card');
     const users = JSON.parse(localStorage.getItem('users') || '[]');
+
     if (users) {
       const updatedUsers = (users as User[]).map(u =>
-        user.name === u.name ? { ...u, card: [{ ...item, quantity: 1 }, ...products] } : user,
+        user.name === u.name ? { ...u, card: [{ ...item, quantity: 1 }, ...products] } : u,
       );
       localStorage.setItem('users', JSON.stringify(updatedUsers));
     }

@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import AvatarUser from './AvatarUser';
 import { ModalNotice } from './ModalNotice';
 import { ModalProfile } from './ModalProfile';
+import { setProducts } from '@/feature/card/cardSlice';
 
 interface IDrawerNav {
   open: boolean;
@@ -67,7 +68,12 @@ const DrawerNav: React.FC<IDrawerNav> = ({ open, toggleDrawer }) => {
                 </ListItemButton>
               </ListItem>
               <ListItem key={'Log Out'} disablePadding>
-                <ListItemButton divider onClick={() => dispatch(setUser(null))}>
+                <ListItemButton
+                  divider
+                  onClick={() => {
+                    dispatch(setUser(null));
+                    dispatch(setProducts([]));
+                  }}>
                   <ListItemIcon>
                     <Logout sx={{ color: 'red' }} />
                   </ListItemIcon>

@@ -1,10 +1,11 @@
 import { RootState } from '@/app/store';
+import { setProducts } from '@/feature/card/cardSlice';
 import { User } from '@/feature/user/userSlice';
 import { getAllUser, setUser } from '@/util/data';
 import { Product } from '@/util/types';
 import { Box, Button, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface IItemCard {
   item: Product;
@@ -12,6 +13,7 @@ interface IItemCard {
 }
 
 const ItemCard: React.FC<IItemCard> = ({ item, setIsRemove }) => {
+  const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user.user);
 
   const [quantity, setQuantity] = useState<number>(item?.quantity);
@@ -32,9 +34,11 @@ const ItemCard: React.FC<IItemCard> = ({ item, setIsRemove }) => {
     const filterUser = (users as User[]).filter(u => u.name !== user?.name);
     const currentUsers = (users as User[]).find(u => u.name === user?.name);
     const cardFilter = currentUsers?.card.filter(c => c.productID !== item.productID);
+
     const currentUsersNew = { ...(currentUsers as User), card: [...(cardFilter || [])] };
     setUser([currentUsersNew, ...filterUser]);
     setIsRemove(pre => !pre);
+    dispatch(setProducts(cardFilter || []));
   };
 
   const onDecrease = () => {

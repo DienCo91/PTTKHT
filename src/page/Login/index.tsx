@@ -1,3 +1,4 @@
+import { setProducts } from '@/feature/card/cardSlice';
 import { setUser, User } from '@/feature/user/userSlice';
 import { Box, Button, Container, Link, Tab, Tabs, TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
@@ -41,6 +42,7 @@ const Login: React.FC = () => {
         const user = (storedUsers as User[]).find(i => i.name === formData.name && i.password === formData.password);
         if (user) {
           dispatch(setUser(user));
+          dispatch(setProducts(user.card));
           navigate('/');
           return;
         }

@@ -1,9 +1,10 @@
+import { Product } from '@/util/types';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
 // Define a type for the slice state
 interface CardState {
-  listProducts: any[];
+  listProducts: Product[];
   feeShip: string;
 }
 
@@ -17,7 +18,7 @@ export const cardSlice = createSlice({
   name: 'card',
   initialState,
   reducers: {
-    setProducts: (state, action: PayloadAction<any[]>) => {
+    setProducts: (state, action: PayloadAction<Product[]>) => {
       state.listProducts = action.payload;
     },
     setFeeShip: (state, action: PayloadAction<string>) => {

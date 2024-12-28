@@ -999,3 +999,23 @@ export const data = [
     quantity: 265,
   },
 ];
+
+export const getAllUser = () => {
+  return JSON.parse(localStorage.getItem('users') || '[]');
+};
+
+export const setUser = users => {
+  localStorage.setItem('users', JSON.stringify(users));
+};
+
+export const setProductAll = products => {
+  localStorage.setItem('products', JSON.stringify(products));
+};
+
+export const setComment = comments => {
+  localStorage.setItem('comments', JSON.stringify(comments));
+};
+
+export const getComment = () => {
+  return JSON.parse(localStorage.getItem('comments') || '[]');
+};

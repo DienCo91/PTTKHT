@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import './styles.scss';
 import { toast } from 'react-toastify';
+import CommentWithRating from './components/CommentWithRating';
+import { Product } from '@/util/types';
 
 const DetailItem = () => {
   const { id } = useParams();
@@ -21,7 +23,7 @@ const DetailItem = () => {
     }
   }, [id, navigation]);
 
-  const addCart = (item: any) => {
+  const addCart = (item: Product) => {
     if (!user) return;
     const index = products.findIndex(p => p.productID === item.productID);
 
@@ -50,50 +52,56 @@ const DetailItem = () => {
     return dispatch(setProducts([{ ...item, quantity: 1 }, ...products]));
   };
 
-  const item = data.find(item => item.productID.toString() === id);
+  const item = data.find(item => item.productID.toString() === id) as Product;
 
   return (
     <Box
       sx={{
-        display: 'flex',
-        margin: '20px auto',
+        margin: 'auto',
         width: '80%',
         height: '100vh',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        marginTop: 14,
       }}>
-      {/* Ảnh bên trái */}
-      <div className="image-container  w-[400px] h-[400px] 2xl:w-[600px] 2xl:h-[600px] rounded-sm overflow-hidden shadow-lg">
-        <img src={item?.media.link[0]} alt="Image 1" className="image image-1 object-cover w-full h-full" />
-        <img src={item?.media.link[1]} alt="Image 2" className="image image-2 object-cover w-full h-full" />
-      </div>
-
       <Box
         sx={{
           display: 'flex',
-          flexDirection: 'column',
-          flex: '1',
-          alignItems: 'flex-end',
+          justifyContent: 'space-between',
+          alignItems: 'center',
         }}>
-        <CardContent sx={{ padding: 3 }}>
-          <Typography variant="h5" component="div" sx={{ fontWeight: 'bold' }}>
-            {item?.productName}
-          </Typography>
-          <Typography variant="body1" color="text.secondary" sx={{ marginY: 2 }}>
-            {`${item?.productLabel} - ${item?.productColor}`}
-          </Typography>
-          <Typography variant="h6" color="primary" sx={{ fontWeight: 'bold' }}>
-            {`${item?.productPrice}`}
-          </Typography>
-        </CardContent>
+        {/* Ảnh bên trái */}
+        <div className="image-container  w-[400px] h-[400px] 2xl:w-[600px] 2xl:h-[600px] rounded-sm overflow-hidden shadow-lg">
+          <img src={item?.media.link[0]} alt="Image 1" className="image image-1 object-cover w-full h-full" />
+          <img src={item?.media.link[1]} alt="Image 2" className="image image-2 object-cover w-full h-full" />
+        </div>
 
-        {/* Nút Add to Cart */}
-        <Box sx={{ padding: 3, display: 'flex', alignItems: 'center' }}>
-          <Button variant="contained" color="primary" sx={{ fontWeight: 'bold' }} onClick={() => addCart(item)}>
-            Add to Cart
-          </Button>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            flex: '1',
+            alignItems: 'flex-end',
+          }}>
+          <CardContent sx={{ padding: 3 }}>
+            <Typography variant="h5" component="div" sx={{ fontWeight: 'bold' }}>
+              {item?.productName}
+            </Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ marginY: 2 }}>
+              {`${item?.productLabel} - ${item?.productColor}`}
+            </Typography>
+            <Typography variant="h6" color="primary" sx={{ fontWeight: 'bold' }}>
+              {`${item?.productPrice}`}
+            </Typography>
+          </CardContent>
+
+          {/* Nút Add to Cart */}
+          <Box sx={{ padding: 3, display: 'flex', alignItems: 'center' }}>
+            <Button variant="contained" color="primary" sx={{ fontWeight: 'bold' }} onClick={() => addCart(item)}>
+              Add to Cart
+            </Button>
+          </Box>
         </Box>
       </Box>
+      <CommentWithRating />
     </Box>
   );
 };

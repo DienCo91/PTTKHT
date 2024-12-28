@@ -11,8 +11,14 @@ import DetailItem from './page/DetailItem';
 import Payment from './page/Payment/Payment';
 import Invoice from './page/Invoice/Invoice';
 import Login from './page/Login';
+import { useEffect } from 'react';
+import { data, setProductAll } from './util/data';
 
 function App() {
+  useEffect(() => {
+    setProductAll(data);
+  }, []);
+
   return (
     <Routes>
       <Route path="/" element={<Navigate />}>

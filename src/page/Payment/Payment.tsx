@@ -4,15 +4,17 @@ import CartItem from './components/CartItem';
 import SummarySection from './components/SummarySection';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
-import { useLocation } from 'react-router-dom';
+import { getAllUser } from '@/util/data';
+import { Product } from '@/util/types';
 
 const Payment = () => {
-  const location = useLocation();
-  const data = location.state;
-  const products = data.data;
   const feeShipping = useSelector((state: RootState) => state.card.feeShip);
+  const user = useSelector((state: RootState) => state.user.user);
 
-  const total = products.reduce((sum, item) => {
+  const users = getAllUser();
+  const currentUsers = users.find(u => u.name === user?.name);
+
+  const total = currentUsers.card.reduce((sum: number, item: Product) => {
     const numericValue = Number(item.productPrice.replace(/\./g, '').replace(' VND', ''));
     return sum + numericValue * item.quantity;
   }, 0);
@@ -29,7 +31,8 @@ const Payment = () => {
           <Typography fontWeight={'500'} fontSize={24}>
             Order Summary
           </Typography>
-          {products.length > 0 && products.map(product => <CartItem key={product.productID} item={product} />)}
+          {currentUsers.card.length > 0 &&
+            (currentUsers.card as Product[]).map(product => <CartItem key={product.productID} item={product} />)}
           <SummarySection total={formattedTotal} feeShipping={feeShipping} priceProduct={priceProduct} />
         </div>
         <div className="flex flex-1">

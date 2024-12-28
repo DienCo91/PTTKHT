@@ -38,7 +38,7 @@ const Login: React.FC = () => {
     if (tabIndex === 0) {
       const storedUsers = JSON.parse(localStorage.getItem('users') || '[]');
       if (storedUsers) {
-        const user = storedUsers.find((i: any) => i.name === formData.name);
+        const user = storedUsers.find((i: any) => i.name === formData.name && i.password === formData.password);
         if (user) {
           dispatch(setUser(user));
           navigate('/');

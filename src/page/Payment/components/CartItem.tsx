@@ -1,11 +1,17 @@
+import { Product } from '@/util/types';
 import { CardMedia, Grid, Typography } from '@mui/material';
 import React from 'react';
 
 interface ICartItem {
-  item: any;
+  item: Product;
 }
 
 const CartItem: React.FC<ICartItem> = ({ item }) => {
+  const formatPrice =
+    new Intl.NumberFormat('vi-VN').format(
+      Number(Number(item.productPrice.replace(/\./g, '').replace(' VND', '')) * item?.quantity),
+    ) + ' VND';
+
   return (
     <Grid container alignItems="center" spacing={2} px={2} mt={2}>
       <Grid item>
@@ -18,7 +24,7 @@ const CartItem: React.FC<ICartItem> = ({ item }) => {
         </Typography>
       </Grid>
       <Grid item>
-        <Typography>{item?.productPrice}</Typography>
+        <Typography>{formatPrice}</Typography>
       </Grid>
     </Grid>
   );

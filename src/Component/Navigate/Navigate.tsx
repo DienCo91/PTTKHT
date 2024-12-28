@@ -77,7 +77,7 @@ const Navigate = () => {
     <>
       <div
         ref={scroll}
-        className="flex justify-around bg-transparent h-[80px] z-[101] fixed w-full top-0 transform transition-all duration-200 linear select-none">
+        className="flex justify-center bg-transparent h-[80px] z-[101] fixed w-full top-0 transform transition-all duration-200 linear select-none">
         <div className="w-[80%] flex justify-around">
           <div
             className="flex items-center w-full flex-1 cursor-pointer"

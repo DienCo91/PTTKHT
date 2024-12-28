@@ -26,7 +26,7 @@ const DetailItem = () => {
 
   const addCart = (item: Product) => {
     if (!user) return;
-    const index = products.findIndex(p => p.productID === item.productID);
+    const index = products?.findIndex(p => p.productID === item.productID);
     // console.log('🚀 ~ addCart ~ products:', products);
 
     if (index > -1) {
@@ -37,11 +37,11 @@ const DetailItem = () => {
 
     if (users) {
       const updatedUsers = (users as User[]).map(u =>
-        user.name === u.name ? { ...u, card: [{ ...item, quantity: 1 }, ...products] } : u,
+        user.name === u.name ? { ...u, card: [{ ...item, quantity: 1 }, ...(products || [])] } : u,
       );
       localStorage.setItem('users', JSON.stringify(updatedUsers));
     }
-    return dispatch(setProducts([{ ...item, quantity: 1 }, ...products]));
+    return dispatch(setProducts([{ ...item, quantity: 1 }, ...(products || [])]));
   };
 
   const item = data.find(item => item.productID.toString() === id) as Product;

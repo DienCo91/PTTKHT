@@ -1,10 +1,154 @@
-import { User } from '@/feature/user/userSlice';
+import { INotice, User } from '@/feature/user/userSlice';
 import { Product } from './types';
 import { Comment } from '@/page/DetailItem/components/CommentWithRating';
 
-export const optionFilter = [{ label: 'shirt' }, { label: 'accessory' }, { label: 'shoe' }, { label: 'other' }];
+export const optionFilter = [
+  { label: 'laptop' },
+  { label: 'phone' },
+  { label: 'book' },
+  { label: 'shirt' },
+  { label: 'accessory' },
+  { label: 'shoe' },
+  { label: 'other' },
+];
 
 export const data = [
+  {
+    productID: 2045678,
+    productName: 'The Great Gatsby',
+    productPrice: '150.000 VND',
+    promotion: ['10% Off'],
+    productSKU: 'BOOK001',
+    productLabel: 'Bestseller',
+    media: {
+      link: [
+        'https://upload.wikimedia.org/wikipedia/vi/2/26/TheGreatGatsby2012Poster.jpg',
+        'https://upload.wikimedia.org/wikipedia/vi/2/26/TheGreatGatsby2012Poster.jpg',
+      ],
+      type: 'jpg',
+    },
+    statusQuantity: 50,
+    isLike: true,
+    linkBuyNow: 'https://example.com/books/the-great-gatsby',
+    category: 'Books',
+    isBuyOnline: true,
+    isLimitedEdition: false,
+    quantity: 100,
+  },
+  {
+    productID: 20456789,
+    productName: 'Đắc Nhân Tâm',
+    productPrice: '150.000 VND',
+    promotion: ['10% Off'],
+    productSKU: 'BOOK001',
+    productLabel: 'Bestseller',
+    media: {
+      link: [
+        'https://nxbhcm.com.vn/Image/Biasach/dacnhantam86.jpg',
+        'https://nxbhcm.com.vn/Image/Biasach/dacnhantam86.jpg',
+      ],
+      type: 'jpg',
+    },
+    statusQuantity: 50,
+    isLike: true,
+    linkBuyNow: 'https://example.com/books/the-great-gatsby',
+    category: 'Books',
+    isBuyOnline: true,
+    isLimitedEdition: false,
+    quantity: 100,
+  },
+  {
+    productID: 3048901,
+    productName: 'MacBook Pro 14-inch M2',
+    productPrice: '45.000.000 VND',
+    promotion: ['Free Shipping', '2 Years Warranty'],
+    productColor: 'Space Gray',
+    productSKU: 'LAP001',
+    productLabel: 'Premium',
+    media: {
+      link: [
+        'https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/m/b/mbp14-spacegray-select-202301_1.jpg',
+        'https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/m/b/mbp14-spacegray-select-202301_1.jpg',
+      ],
+      type: 'jpg',
+    },
+    statusQuantity: 25,
+    isLike: false,
+    linkBuyNow: 'https://example.com/laptops/macbook-pro-14',
+    category: 'Laptops',
+    isBuyOnline: true,
+    isLimitedEdition: false,
+    quantity: 50,
+  },
+  {
+    productID: 30489012,
+    productName: 'Laptop Intel NUC M15 Kit',
+    productPrice: '25.000.000 VND',
+    promotion: ['Free Shipping', '2 Years Warranty'],
+    productColor: 'Space Gray',
+    productSKU: 'LAP001',
+    productLabel: 'Premium',
+    media: {
+      link: [
+        'https://cdn.tgdd.vn/Products/Images/44/265022/intel-nuc-m15-i7-bbc710bcuxbc1-thumb-1-600x600.jpg',
+        'https://cdn.tgdd.vn/Products/Images/44/265022/intel-nuc-m15-i7-bbc710bcuxbc1-thumb-1-600x600.jpg',
+      ],
+      type: 'jpg',
+    },
+    statusQuantity: 25,
+    isLike: false,
+    linkBuyNow: 'https://example.com/laptops/macbook-pro-14',
+    category: 'Laptops',
+    isBuyOnline: true,
+    isLimitedEdition: false,
+    quantity: 50,
+  },
+  {
+    productID: 4056789,
+    productName: 'Samsung Galaxy S23 Ultra',
+    productPrice: '29.990.000 VND',
+    promotion: ['Free Case', '12 Months Installment Plan'],
+    productColor: 'Phantom Black',
+    productSKU: 'MOB001',
+    productLabel: 'Flagship',
+    media: {
+      link: [
+        'https://sonpixel.vn/wp-content/uploads/2024/04/s23-ultra-5g-xanh.webp',
+        'https://sonpixel.vn/wp-content/uploads/2024/04/s23-ultra-5g-xanh.webp',
+      ],
+      type: 'jpg',
+    },
+    statusQuantity: 40,
+    isLike: true,
+    linkBuyNow: 'https://example.com/phones/samsung-galaxy-s23-ultra',
+    category: 'Phones',
+    isBuyOnline: true,
+    isLimitedEdition: false,
+    quantity: 80,
+  },
+  {
+    productID: 40567232,
+    productName: 'iPhone 16 Pro',
+    productPrice: '28.590.000 VND',
+    promotion: ['Free Case', '12 Months Installment Plan'],
+    productColor: 'Phantom Black',
+    productSKU: 'MOB001',
+    productLabel: 'Flagship',
+    media: {
+      link: [
+        'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-16-pro.png',
+        'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-16-pro.png',
+      ],
+      type: 'jpg',
+    },
+    statusQuantity: 40,
+    isLike: true,
+    linkBuyNow: 'https://example.com/phones/samsung-galaxy-s23-ultra',
+    category: 'Phones',
+    isBuyOnline: true,
+    isLimitedEdition: false,
+    quantity: 80,
+  },
   {
     productID: 1042669,
     productName: 'Retro Souvenir Ball - The Team',
@@ -1005,7 +1149,7 @@ export const data = [
 ];
 
 export const getAllUser = () => {
-  return JSON.parse(localStorage.getItem('users') || '[]');
+  return JSON.parse(localStorage.getItem('users') || '[]') as User[];
 };
 
 export const setUser = (users: User[]) => {
@@ -1015,6 +1159,9 @@ export const setUser = (users: User[]) => {
 export const setProductAll = (products: Product[]) => {
   localStorage.setItem('products', JSON.stringify(products));
 };
+export const getProductAll = () => {
+  return JSON.parse(localStorage.getItem('products') || '[]') as Product[];
+};
 
 export const setComment = (comments: Comment[]) => {
   localStorage.setItem('comments', JSON.stringify(comments));
@@ -1022,4 +1169,12 @@ export const setComment = (comments: Comment[]) => {
 
 export const getComment = () => {
   return JSON.parse(localStorage.getItem('comments') || '[]');
+};
+
+export const getNotice = () => {
+  return JSON.parse(localStorage.getItem('notices') || '[]') as INotice[];
+};
+
+export const setNotice = (notices: INotice[]) => {
+  localStorage.setItem('notices', JSON.stringify(notices));
 };

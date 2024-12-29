@@ -1,5 +1,6 @@
 import { setProducts } from '@/feature/card/cardSlice';
 import { setUser, User } from '@/feature/user/userSlice';
+import { setUser as setAllUser } from '@/util/data';
 import { Box, Button, Container, Link, Tab, Tabs, TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -42,7 +43,7 @@ const Login: React.FC = () => {
         const user = (storedUsers as User[]).find(i => i.name === formData.name && i.password === formData.password);
         if (user) {
           dispatch(setUser(user));
-          dispatch(setProducts(user.card));
+          if (user?.card) dispatch(setProducts(user?.card));
           navigate('/');
           return;
         }
@@ -53,8 +54,8 @@ const Login: React.FC = () => {
         toast.error('Password and confirm password do not match!');
         return;
       }
-      const updatedUsers = [...users, formData];
-      localStorage.setItem('users', JSON.stringify(updatedUsers));
+      const updatedUsers = [...users, { ...formData, role: 'client' }];
+      setAllUser(updatedUsers);
       toast.success('Success');
       setTabIndex(0);
     }

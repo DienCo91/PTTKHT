@@ -33,6 +33,7 @@ const Payment = () => {
             Order Summary
           </Typography>
           {currentUsers &&
+            currentUsers?.card &&
             currentUsers?.card?.length > 0 &&
             (currentUsers?.card as Product[]).map(product => <CartItem key={product.productID} item={product} />)}
           <SummarySection total={formattedTotal} feeShipping={feeShipping} priceProduct={priceProduct} />

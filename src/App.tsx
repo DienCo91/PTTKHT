@@ -12,12 +12,27 @@ import Payment from './page/Payment/Payment';
 import Invoice from './page/Invoice/Invoice';
 import Login from './page/Login';
 import { useEffect } from 'react';
-import { data, setProductAll } from './util/data';
+import { data, getAllUser, setProductAll, setUser } from './util/data';
 import { Product } from './util/types';
 
 function App() {
   useEffect(() => {
+    const user = getAllUser();
     setProductAll(data as Product[]);
+    const index = user.findIndex(user => user.role === 'admin');
+    if (index < 0) {
+      setUser([
+        ...user,
+        {
+          name: 'admin',
+          email: 'admin@gmail.com',
+          password: 'admin',
+          confirmPassword: 'admin',
+          phone: '0966604175',
+          role: 'admin',
+        },
+      ]);
+    }
   }, []);
 
   return (

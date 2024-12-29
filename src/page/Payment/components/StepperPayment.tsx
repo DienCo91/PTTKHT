@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
 import { setProducts } from '@/feature/card/cardSlice';
 import { User } from '@/feature/user/userSlice';
+import { getAllUser, getNotice, getProductAll, setNotice, setProductAll, setUser } from '@/util/data';
+import { filterProducts } from '@/util/util';
 
 const steps = ['Shipping', 'Delivery', 'Payment'];
 const StepperPayment = () => {
@@ -15,6 +17,7 @@ const StepperPayment = () => {
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set<number>());
+  const [isBill, setIsBill] = React.useState(false);
 
   // State cho các trường dữ liệu
   const [formData, setFormData] = useState<FormData>({
@@ -78,35 +81,45 @@ const StepperPayment = () => {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   };
 
-  const handleReset = () => {
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
+  const handleViewInvoice = () => {
+    const users = getAllUser();
+    const products = getProductAll();
     if (users) {
+      const notices = getNotice();
+
       const updatedUsers = (users as User[]).map(u =>
         user?.name === u.name
           ? {
               ...u,
               card: [],
-              notice: [
-                ...(u?.notice || []),
-                {
-                  id: generateIdFromDateTime(),
-                  name: generateIdFromDateTime(),
-                  status: 'Pending',
-                  date: formatDateToYYYYMMDD(),
-                  color: 'warning',
-                },
-              ],
             }
           : u,
       );
-      localStorage.setItem('users', JSON.stringify(updatedUsers));
+      setUser(updatedUsers);
+      const notice = {
+        id: generateIdFromDateTime(),
+        name: generateIdFromDateTime(),
+        status: 'Pending',
+        date: formatDateToYYYYMMDD(),
+        color: 'warning',
+        userName: user?.name || '',
+        isBill: isBill,
+        ...formData,
+        feeShipping,
+        listProducts,
+      };
+      setNotice([notice, ...notices]);
       dispatch(setProducts([]));
+      const newProducts = filterProducts(products, listProducts);
+
+      setProductAll(newProducts);
+
+      navigate('/invoice', {
+        state: {
+          data: { ...notice },
+        },
+      });
     }
-    navigate('/invoice', {
-      state: {
-        data: { ...formData, feeShipping, listProducts },
-      },
-    });
   };
 
   const handleSetFormData = (data: FormData) => {
@@ -119,10 +132,10 @@ const StepperPayment = () => {
 
     if (activeStep === 1) return <DeliveryOptions />;
 
-    if (activeStep === 2) return <PaymentMethods />;
+    if (activeStep === 2) return <PaymentMethods setIsBill={setIsBill} />;
 
     return <></>;
-  }, [activeStep]);
+  }, [activeStep, setIsBill]);
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -148,7 +161,7 @@ const StepperPayment = () => {
           <Typography sx={{ mt: 2, mb: 1, ml: 2 }}>All steps completed - you&apos;re finished</Typography>
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
             <Box sx={{ flex: '1 1 auto' }} />
-            <Button onClick={handleReset}>View Invoice</Button>
+            <Button onClick={handleViewInvoice}>View Invoice</Button>
           </Box>
         </React.Fragment>
       ) : (

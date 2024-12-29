@@ -18,10 +18,10 @@ const Item: React.FC<IItem> = ({ item, style }) => {
       onClick={() => {
         navigate(`/detail/${item.productID}`);
       }}>
-      <img src={item.media.link[0]} alt="12312" />
+      <img src={item.media.link[0]} alt="12312" style={{ height: 280, width: '100%', objectFit: 'cover' }} />
       <div className="px-[16px] py-[8px]">
         <p className="font-semibold line-clamp-1">{item.productName}</p>
-        <p className="mt-[8px] opacity-50 ">{item.productColor}</p>
+        <p className="mt-[8px] opacity-50 h-[20px]">{item?.productColor || ''}</p>
         <div className="flex justify-between items-center">
           <h2 className="mt-[8px] font-semibold">{item.productPrice}</h2>
           <p className="opacity-60">{item.quantity} left</p>

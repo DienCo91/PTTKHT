@@ -38,7 +38,6 @@ export const ModalProfile: React.FC<IModalProfile> = ({ open, toggleModalProfile
             Profile
           </Typography>
           <AvatarUser />
-          <Divider />
           <Box sx={{ mx: 'auto', mt: 2 }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', py: 1 }}>
               <Typography variant="body2" color="textSecondary">
@@ -46,6 +45,16 @@ export const ModalProfile: React.FC<IModalProfile> = ({ open, toggleModalProfile
               </Typography>
               <Typography variant="body2" color="textPrimary">
                 {user?.name}
+              </Typography>
+            </Box>
+            <Divider />
+
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', py: 1 }}>
+              <Typography variant="body2" color="textSecondary">
+                Role
+              </Typography>
+              <Typography variant="body2" color="textPrimary">
+                {user?.role}
               </Typography>
             </Box>
             <Divider />

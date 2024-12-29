@@ -26,8 +26,6 @@ const ModalCard: React.FC<IModalCard> = ({ open, handleClose }) => {
     return currentUsers?.card || [];
   }, [user, users, listProducts, isRemove]);
 
-  console.log(productNew);
-
   return (
     <Modal open={open} onClose={handleClose}>
       <Box

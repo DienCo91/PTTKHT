@@ -1,7 +1,11 @@
-import { RootState } from '@/app/store';
+import imgPaid from '@/assets/img/paid.png';
+import { getNotice, setNotice } from '@/util/data';
 import { Product } from '@/util/types';
+import { getChipStyles } from '@/util/util';
 import {
   Box,
+  Button,
+  Chip,
   Divider,
   Grid,
   Paper,
@@ -14,21 +18,21 @@ import {
   Typography,
 } from '@mui/material';
 import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Invoice = () => {
-  const feeShipping = useSelector((state: RootState) => state.card.feeShip);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const data = location.state;
+  const bill = data.data;
+  const feeShipping = bill.feeShipping;
 
   const fee = useMemo(() => {
     if (!feeShipping) return 7;
     if (feeShipping === '40.000 VND') return 4;
     return 1;
   }, []);
-
-  const location = useLocation();
-  const data = location.state;
-  const bill = data.data;
 
   const addDaysToDate = (baseDate: Date, daysToAdd: number) => {
     const newDate = new Date(baseDate);
@@ -53,10 +57,27 @@ const Invoice = () => {
 
   const priceProduct = new Intl.NumberFormat('vi-VN').format(total).replace(' VND', '') + ' VND';
 
+  const handleCancelOrder = () => {
+    const notices = getNotice();
+    setNotice(notices.filter(n => n.id !== bill.id));
+    navigate('/');
+    toast.success('Order cancelled');
+  };
+
   return (
-    <Paper className="w-[80%]  mx-auto p-8 bg-gray-50 mt-[120px] mb-[40px]">
+    <Paper className="w-[80%]  mx-auto p-8 bg-gray-50 mt-[120px] mb-[40px] relative">
+      {bill.status === 'Pending' && (
+        <div className="absolute right-8 bottom-8">
+          <Button color="error" variant="contained" onClick={handleCancelOrder}>
+            Cancel order
+          </Button>
+        </div>
+      )}
       <Typography fontSize={32} fontWeight={600} marginBottom={4}>
-        Invoice
+        {bill.isBill ? 'Bill' : 'Invoice'}
+      </Typography>
+      <Typography fontSize={20} fontWeight={500} color="text.secondary" marginY={1}>
+        Status : <Chip label={bill.status} size="small" sx={getChipStyles(bill.color)} />
       </Typography>
       {/* Header Section */}
       <Grid container>
@@ -181,9 +202,12 @@ const Invoice = () => {
       <Typography fontWeight={'600'} fontSize={16} marginTop={20}>
         Thank you for the business!
       </Typography>
-      <Typography fontSize={14} color="#878787cc">
-        Please pay within 15 days of receiving this invoice.
-      </Typography>
+      {!bill.isBill && (
+        <Typography fontSize={14} color="#878787cc">
+          Please pay within 15 days of receiving this invoice.
+        </Typography>
+      )}
+      {bill.isBill && <img src={imgPaid} width={200} height={200} className="absolute right-0 top-0" />}
     </Paper>
   );
 };

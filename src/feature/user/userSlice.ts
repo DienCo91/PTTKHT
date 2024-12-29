@@ -1,13 +1,19 @@
+import { FormData } from '@/page/Payment/components/CheckoutForm';
 import { Product } from '@/util/types';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
-interface INotice {
+export interface INotice {
   id: string;
   status: string;
   date: string;
   color: string;
   name: string;
+  userName: string;
+  isBill: boolean;
+  formData?: FormData;
+  feeShipping?: string;
+  listProducts?: Product[];
 }
 
 export interface User {
@@ -16,8 +22,8 @@ export interface User {
   password: string;
   confirmPassword: string;
   phone: string;
-  notice: INotice[];
-  card: Product[];
+  card?: Product[];
+  role: string;
 }
 // Define a type for the slice state
 interface UserState {

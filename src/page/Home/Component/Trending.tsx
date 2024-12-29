@@ -22,7 +22,7 @@ const Trending = () => {
         {(data as Product[]).map(item => (
           <SwiperSlide style={{ marginRight: 20, marginLeft: 20 }} key={item.productID}>
             <div className="flex">
-              <Item item={item} key={item.productID} style={{ width: '100%' }} />
+              <Item item={item} key={item.productID} style={{ width: '100%', height: 400 }} />
             </div>
           </SwiperSlide>
         ))}

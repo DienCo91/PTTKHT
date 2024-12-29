@@ -22,17 +22,20 @@ const ItemCard: React.FC<IItemCard> = ({ item, setIsRemove }) => {
     const users = getAllUser();
     const filterUser = (users as User[]).filter(u => u.name !== user?.name);
     const currentUsers = (users as User[]).find(u => u.name === user?.name);
+    if (!currentUsers?.card) return;
     const cardFilter = currentUsers?.card.filter(c => c.productID !== item.productID);
 
     const currentUsersNew = { ...(currentUsers as User), card: [{ ...item, quantity: q }, ...(cardFilter || [])] };
 
     setUser([currentUsersNew, ...filterUser]);
+    dispatch(setProducts(currentUsersNew.card || []));
   };
 
   const handleRemoveItem = () => {
     const users = getAllUser();
     const filterUser = (users as User[]).filter(u => u.name !== user?.name);
     const currentUsers = (users as User[]).find(u => u.name === user?.name);
+    if (!currentUsers?.card) return;
     const cardFilter = currentUsers?.card.filter(c => c.productID !== item.productID);
 
     const currentUsersNew = { ...(currentUsers as User), card: [...(cardFilter || [])] };
@@ -51,7 +54,7 @@ const ItemCard: React.FC<IItemCard> = ({ item, setIsRemove }) => {
   };
 
   const formatNumber = (val: number) => {
-    return new Intl.NumberFormat('vi-VN').format(val);
+    return val.toLocaleString('vi-VN');
   };
 
   if (!item) return;
@@ -70,7 +73,7 @@ const ItemCard: React.FC<IItemCard> = ({ item, setIsRemove }) => {
 
         {/* Giá và nút Thêm vào giỏ hàng */}
         <Typography variant="h6" color="primary">
-          {`${formatNumber(Number(item?.productPrice.split(' ')[0].replace('.', '')) * quantity)} VND`}
+          {`${formatNumber(Number(item?.productPrice.split(' ')[0].replace(/\./g, '')) * quantity)} VND`}
         </Typography>
         {quantity && (
           <div className="flex items-center">

@@ -1,19 +1,22 @@
-import { data } from '@/util/data';
+import { data, getProductAll } from '@/util/data';
 import { useEffect, useRef, useState } from 'react';
 import Item from './Item';
 import SearchAppBar from './SearchComponent';
 
+import { Product } from '@/util/types';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import './style.scss';
 import Trending from './Trending';
-import { Product } from '@/util/types';
 
 const TYPE = {
   shirt: 'Top | Nửa trên',
   shoe: 'Footwear | Lên chân',
   accessory: 'Accessories | Phụ kiện',
+  book: 'Books',
+  phone: 'Phones',
+  laptop: 'Laptops',
   other: 'Football Equipment',
 };
 
@@ -21,7 +24,7 @@ const Main = () => {
   const showTag = useRef<HTMLDivElement>(null);
   const showCommit = useRef<HTMLDivElement>(null);
 
-  const [dataProduct, setDataProduct] = useState<Product[]>(data as Product[]);
+  const [dataProduct, setDataProduct] = useState<Product[]>([]);
 
   useEffect(() => {
     function handleScroll() {
@@ -46,6 +49,11 @@ const Main = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const prods = getProductAll();
+    setDataProduct(prods);
+  }, []);
+
   const handleSearch = ({ val, type }: { val: string; type: string }) => {
     const lowerVal = val.toLowerCase();
 
@@ -65,7 +73,6 @@ const Main = () => {
 
   return (
     <div className="z-[100]  flex items-center flex-col" id="shop">
-      {/* trending */}
       <div
         className={`flex flex-col w-[80%] transition-all duration-[1s] ease-in-out opacity-0 pointer-events-none mt-[200px]`}
         ref={showCommit}>
@@ -78,7 +85,6 @@ const Main = () => {
         <h1 className="text-[32px] font-bold mb-[20px]">Shop</h1>
         <SearchAppBar handleSearch={handleSearch} />
         <div className="flex flex-wrap justify-start mt-[20px]">
-          {/* item */}
           {dataProduct.map((item, index) => (
             <Item item={item} key={index} />
           ))}

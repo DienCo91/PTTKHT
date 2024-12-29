@@ -1,15 +1,19 @@
 import { RootState } from '@/app/store';
-import { User } from '@/feature/user/userSlice';
+import { INotice } from '@/feature/user/userSlice';
+import { getNotice } from '@/util/data';
+import { getChipStyles } from '@/util/util';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { Chip, Divider, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import * as React from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 interface IModalNotice {
   toggleModalNotice: () => void;
   open: boolean;
+  toggleDrawer: () => void;
 }
 
 const style = {
@@ -26,30 +30,26 @@ const style = {
   overflow: 'auto',
 };
 
-const getChipStyles = (color: string) => {
-  switch (color) {
-    case 'primary':
-      return { backgroundColor: 'primary.main', color: 'white' };
-    case 'success':
-      return { backgroundColor: 'success.main', color: 'white' };
-    case 'error':
-      return { backgroundColor: 'error.main', color: 'white' };
-    case 'warning':
-      return { backgroundColor: 'warning.main', color: 'white' };
-    default:
-      return { backgroundColor: 'grey.300', color: 'black' };
-  }
-};
-
-export const ModalNotice: React.FC<IModalNotice> = ({ open, toggleModalNotice }) => {
+export const ModalNotice: React.FC<IModalNotice> = ({ open, toggleModalNotice, toggleDrawer }) => {
+  const navigate = useNavigate();
   const user = useSelector((state: RootState) => state.user.user);
-  const users = JSON.parse(localStorage.getItem('users') || '[]');
 
-  const currentUser = (users as User[]).find(u => u.name === user?.name);
+  const notifications = React.useMemo(() => {
+    const notice = getNotice();
+    if (notice && user) return notice.filter(item => item.userName === user.name);
+    return [];
+  }, [open]);
 
-  const notifications = currentUser?.notice;
+  const handleViewDetail = (notification: INotice) => {
+    toggleDrawer();
+    toggleModalNotice();
+    navigate('/invoice', {
+      state: {
+        data: { ...notification },
+      },
+    });
+  };
 
-  if (!notifications) return;
   return (
     <div>
       <Modal
@@ -61,34 +61,40 @@ export const ModalNotice: React.FC<IModalNotice> = ({ open, toggleModalNotice })
           <Typography textAlign={'center'} fontWeight={'500'} fontSize={24}>
             Notice
           </Typography>
-          {notifications.map(notification => {
-            if (!notification) return;
-            return (
-              <React.Fragment key={notification?.id || ''}>
-                <ListItem disablePadding>
-                  <ListItemButton>
-                    <ListItemIcon>
-                      <AccessTimeIcon />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={
-                        <Typography variant="body1" fontWeight="bold">
-                          {notification.name}
-                        </Typography>
-                      }
-                      secondary={
-                        <Typography variant="body2" color="textSecondary">
-                          {notification.date}
-                        </Typography>
-                      }
-                    />
-                    <Chip label={notification.status} size="small" sx={getChipStyles(notification.color)} />
-                  </ListItemButton>
-                </ListItem>
-                <Divider />
-              </React.Fragment>
-            );
-          })}
+          {notifications.length > 0 ? (
+            notifications.map(notification => {
+              if (!notification) return;
+              return (
+                <React.Fragment key={notification?.id || ''}>
+                  <ListItem disablePadding>
+                    <ListItemButton onClick={() => handleViewDetail(notification)}>
+                      <ListItemIcon>
+                        <AccessTimeIcon />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={
+                          <Typography variant="body1" fontWeight="bold">
+                            {notification.name}
+                          </Typography>
+                        }
+                        secondary={
+                          <Typography variant="body2" color="textSecondary">
+                            {notification.date}
+                          </Typography>
+                        }
+                      />
+                      <Chip label={notification.status} size="small" sx={getChipStyles(notification.color)} />
+                    </ListItemButton>
+                  </ListItem>
+                  <Divider />
+                </React.Fragment>
+              );
+            })
+          ) : (
+            <Typography width={'100%'} textAlign={'center'} marginTop={2} color="#434343cc">
+              Notice empty
+            </Typography>
+          )}
         </Box>
       </Modal>
     </div>

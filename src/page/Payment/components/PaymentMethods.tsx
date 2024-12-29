@@ -24,11 +24,16 @@ const StyledTextField = styled(TextField)({
   },
 });
 
-const PaymentMethods = () => {
+interface IPaymentMethods {
+  setIsBill: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const PaymentMethods: React.FC<IPaymentMethods> = ({ setIsBill }) => {
   const [value, setValue] = React.useState('cash');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
+    setIsBill(event.target.value === 'card');
   };
 
   return (
@@ -100,6 +105,7 @@ const PaymentMethods = () => {
                     InputProps={{
                       endAdornment: <CreditCardIcon sx={{ color: 'text.disabled' }} />,
                     }}
+                    required
                   />
                 </Box>
                 <Box sx={{ display: 'flex', gap: 2 }}>
@@ -109,6 +115,7 @@ const PaymentMethods = () => {
                     InputProps={{
                       endAdornment: <CalendarTodayIcon sx={{ color: 'text.disabled' }} />,
                     }}
+                    required
                   />
                   <StyledTextField
                     placeholder="CVV"
@@ -117,6 +124,7 @@ const PaymentMethods = () => {
                     InputProps={{
                       endAdornment: <LockIcon sx={{ color: 'text.disabled' }} />,
                     }}
+                    required
                   />
                 </Box>
               </Box>

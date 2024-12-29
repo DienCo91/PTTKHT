@@ -1,6 +1,6 @@
 import { RootState } from '@/app/store';
 import { setProducts } from '@/feature/card/cardSlice';
-import { data } from '@/util/data';
+import { data, getAllUser } from '@/util/data';
 import { Box, Button, CardContent, Typography } from '@mui/material';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -27,13 +27,12 @@ const DetailItem = () => {
   const addCart = (item: Product) => {
     if (!user) return;
     const index = products?.findIndex(p => p.productID === item.productID);
-    // console.log('🚀 ~ addCart ~ products:', products);
 
     if (index > -1) {
       return toast.warn('Product added to card');
     }
     toast.success('Product added to card');
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const users = getAllUser();
 
     if (users) {
       const updatedUsers = (users as User[]).map(u =>

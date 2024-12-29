@@ -1,5 +1,7 @@
 import { RootState } from '@/app/store';
-import { setUser, User } from '@/feature/user/userSlice';
+import { setProducts } from '@/feature/card/cardSlice';
+import { setUser } from '@/feature/user/userSlice';
+import { getAllUser, getNotice } from '@/util/data';
 import { Logout } from '@mui/icons-material';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
@@ -10,7 +12,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import AvatarUser from './AvatarUser';
 import { ModalNotice } from './ModalNotice';
 import { ModalProfile } from './ModalProfile';
-import { setProducts } from '@/feature/card/cardSlice';
 
 interface IDrawerNav {
   open: boolean;
@@ -30,12 +31,12 @@ const DrawerNav: React.FC<IDrawerNav> = ({ open, toggleDrawer }) => {
     setOpenNotice(pre => !pre);
   };
 
-  const users = JSON.parse(localStorage.getItem('users') || '[]');
+  const users = getAllUser();
 
   const totalNotice = useMemo(() => {
-    const currentUsers = (users as User[]).find(u => u.name === user?.name);
+    const notices = getNotice();
 
-    return currentUsers?.notice?.length || 0;
+    return notices.filter(e => e.userName === user?.name).length;
   }, [user, users]);
 
   return (
@@ -85,7 +86,7 @@ const DrawerNav: React.FC<IDrawerNav> = ({ open, toggleDrawer }) => {
         </Box>
       </Drawer>
       <ModalProfile open={openProfile} toggleModalProfile={toggleModalProfile} />
-      <ModalNotice open={openNotice} toggleModalNotice={toggleModalNotice} />
+      <ModalNotice open={openNotice} toggleModalNotice={toggleModalNotice} toggleDrawer={toggleDrawer} />
     </>
   );
 };

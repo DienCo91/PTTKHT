@@ -14,6 +14,7 @@ import Login from './page/Login';
 import { useEffect } from 'react';
 import { data, getAllUser, setProductAll, setUser } from './util/data';
 import { Product } from './util/types';
+import ListProduct from './page/ListProduct/ListProduct';
 
 function App() {
   useEffect(() => {
@@ -43,6 +44,7 @@ function App() {
         <Route path="/detail/:id?" element={<DetailItem />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/invoice" element={<Invoice />} />
+        <Route path="/products" element={<ListProduct />} />
         <Route path="/*" element={<Home />} />
       </Route>
     </Routes>

@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import AvatarUser from './AvatarUser';
 import { ModalNotice } from './ModalNotice';
 import { ModalProfile } from './ModalProfile';
+import ListIcon from '@mui/icons-material/List';
+import { useNavigate } from 'react-router-dom';
 
 interface IDrawerNav {
   open: boolean;
@@ -19,6 +21,7 @@ interface IDrawerNav {
 }
 const DrawerNav: React.FC<IDrawerNav> = ({ open, toggleDrawer }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector((state: RootState) => state.user.user);
   const [openProfile, setOpenProfile] = useState<boolean>(false);
   const [openNotice, setOpenNotice] = useState<boolean>(false);
@@ -39,6 +42,11 @@ const DrawerNav: React.FC<IDrawerNav> = ({ open, toggleDrawer }) => {
     return notices.filter(e => e.userName === user?.name).length;
   }, [user, users]);
 
+  const handleClickList = () => {
+    toggleDrawer();
+    navigate('/products');
+  };
+
   return (
     <>
       <Drawer open={open} onClose={toggleDrawer} anchor={'right'}>
@@ -47,7 +55,7 @@ const DrawerNav: React.FC<IDrawerNav> = ({ open, toggleDrawer }) => {
 
           <Box>
             <List>
-              <ListItem key={'Profile'} disablePadding>
+              <ListItem key={'Profile'} disablePadding divider>
                 <ListItemButton onClick={() => setOpenProfile(true)}>
                   <ListItemIcon>
                     <PersonIcon />
@@ -68,6 +76,20 @@ const DrawerNav: React.FC<IDrawerNav> = ({ open, toggleDrawer }) => {
                   <ChevronRightIcon />
                 </ListItemButton>
               </ListItem>
+              {user?.role === 'admin' && (
+                <ListItem key={'ListProduct'} disablePadding onClick={handleClickList}>
+                  <ListItemButton divider>
+                    <ListItemIcon>
+                      {/* show total notice */}
+                      <Badge color="primary">
+                        <ListIcon />
+                      </Badge>
+                    </ListItemIcon>
+                    <ListItemText primary={'List Product'} />
+                    <ChevronRightIcon />
+                  </ListItemButton>
+                </ListItem>
+              )}
               <ListItem key={'Log Out'} disablePadding>
                 <ListItemButton
                   divider

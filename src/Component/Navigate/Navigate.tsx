@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
 import DrawerNav from './components/DrawerNav';
 import { User } from '@/feature/user/userSlice';
+import { Tooltip } from '@mui/material';
 
 const Navigate = () => {
   const scroll = useRef<HTMLDivElement>(null);
@@ -134,17 +135,21 @@ const Navigate = () => {
               <i className="bi bi-person-circle text-[20px] text-white"></i>
             </div>
 
-            <div className="relative">
-              <i
-                className="bi bi-cart2 text-[20px] text-white hover:opacity-[0.8] cursor-pointer"
-                onClick={handleOpen}
-              />
-              {!!totalCard && (
-                <span className="absolute top-[-8px] left-[12px] bg-[#ff6879b6] rounded-full px-2 text-[14px] text-white">
-                  {totalCard}
-                </span>
-              )}
-            </div>
+            {
+              <Tooltip title="card">
+                <div className="relative">
+                  <i
+                    className="bi bi-cart2 text-[20px] text-white hover:opacity-[0.8] cursor-pointer"
+                    onClick={handleOpen}
+                  />
+                  {!!totalCard && (
+                    <span className="absolute top-[-8px] left-[12px] bg-[#ff6879b6] rounded-full px-2 text-[14px] text-white">
+                      {totalCard}
+                    </span>
+                  )}
+                </div>
+              </Tooltip>
+            }
           </div>
         </div>
         <ModalCard handleClose={handleClose} open={open} />

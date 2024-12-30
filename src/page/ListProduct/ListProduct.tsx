@@ -3,9 +3,11 @@ import { Product } from '@/util/types';
 import { Box, Button, CardContent, CardMedia, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import ModalAddProducts from './components/ModalAddProducts';
 
 const ListProduct = () => {
   const [prod, setProds] = useState<Product[]>([]);
+  const [open, setOpen] = useState(false);
 
   const handleDeleteItem = (item: Product) => {
     const newProducts = prod.filter(p => p.productID !== item.productID);
@@ -21,10 +23,13 @@ const ListProduct = () => {
 
   return (
     <div className="mt-[100px] w-[100%] flex justify-center">
-      <div className="w-[80%] ">
-        <Typography variant="h5" component="h1" gutterBottom textAlign={'center'}>
+      <div className="w-[80%] relative">
+        <Typography variant="h5" component="h1" gutterBottom textAlign={'center'} mb={3}>
           Product List
         </Typography>
+        <Button variant="contained" sx={{ position: 'absolute', top: 0, right: 0 }} onClick={() => setOpen(true)}>
+          Add +
+        </Button>
         {prod.map(product => (
           <Box
             key={product.productID}
@@ -71,6 +76,7 @@ const ListProduct = () => {
           </Box>
         ))}
       </div>
+      <ModalAddProducts open={open} setOpen={setOpen} />
     </div>
   );
 };

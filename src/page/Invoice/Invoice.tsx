@@ -128,7 +128,7 @@ const Invoice = () => {
         <Typography fontSize={20} fontWeight={500} color="text.secondary" marginY={1}>
           Status : <Chip label={bill.status} size="small" sx={getChipStyles(bill.color)} />
           {user?.role === 'admin' && (
-            <IconButton sx={{ marginLeft: 2 }} onClick={() => setIsEdit(true)}>
+            <IconButton sx={{ marginLeft: 1 }} onClick={() => setIsEdit(true)}>
               <EditIcon sx={{ width: 20, height: 20 }} />
             </IconButton>
           )}
@@ -139,15 +139,20 @@ const Invoice = () => {
             <FormLabel id="demo-radio-buttons-group-label">Status</FormLabel>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
-              defaultValue="female"
+              defaultValue="Pending"
               name="radio-buttons-group">
               <FormControlLabel value="Pending" control={<Radio />} label="Pending" />
               <FormControlLabel value="Shipping" control={<Radio />} label="Shipping" />
               <FormControlLabel value="Finished" control={<Radio />} label="Finished" />
             </RadioGroup>
-            <Button sx={{ marginY: 2 }} variant="contained" type="submit">
-              Apply
-            </Button>
+            <Box>
+              <Button sx={{ marginY: 2 }} variant="contained" type="submit">
+                Apply
+              </Button>
+              <Button sx={{ marginY: 2, marginLeft: 2 }} onClick={() => setIsEdit(false)}>
+                Cancel
+              </Button>
+            </Box>
           </FormControl>
         </form>
       )}

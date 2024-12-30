@@ -10,7 +10,7 @@ import 'swiper/css/pagination';
 import './style.scss';
 import Trending from './Trending';
 
-const TYPE = {
+export const TYPE = {
   shirt: 'Top | Nửa trên',
   shoe: 'Footwear | Lên chân',
   accessory: 'Accessories | Phụ kiện',

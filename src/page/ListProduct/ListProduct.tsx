@@ -8,6 +8,7 @@ import ModalAddProducts from './components/ModalAddProducts';
 const ListProduct = () => {
   const [prod, setProds] = useState<Product[]>([]);
   const [open, setOpen] = useState(false);
+  const [itemEdit, setItemEdit] = useState<Product | null>(null);
 
   const handleDeleteItem = (item: Product) => {
     const newProducts = prod.filter(p => p.productID !== item.productID);
@@ -16,15 +17,20 @@ const ListProduct = () => {
     toast.success('Product deleted');
   };
 
+  const handleEditItem = (item: Product) => {
+    setItemEdit(item);
+    setOpen(true);
+  };
+
   useEffect(() => {
     const products = getProductAll();
     setProds(products);
-  }, []);
+  }, [open]);
 
   return (
     <div className="mt-[100px] w-[100%] flex justify-center">
       <div className="w-[80%] relative">
-        <Typography variant="h5" component="h1" gutterBottom textAlign={'center'} mb={3}>
+        <Typography variant="h5" component="h1" gutterBottom textAlign={'center'} my={6} mb={8}>
           Product List
         </Typography>
         <Button variant="contained" sx={{ position: 'absolute', top: 0, right: 0 }} onClick={() => setOpen(true)}>
@@ -68,7 +74,7 @@ const ListProduct = () => {
                   Quantity : {product.quantity}
                 </Typography>
                 <Box>
-                  <Button>Edit</Button>
+                  <Button onClick={() => handleEditItem(product)}>Edit</Button>
                   <Button onClick={() => handleDeleteItem(product)}>Delete</Button>
                 </Box>
               </Box>
@@ -76,7 +82,7 @@ const ListProduct = () => {
           </Box>
         ))}
       </div>
-      <ModalAddProducts open={open} setOpen={setOpen} />
+      <ModalAddProducts open={open} setOpen={setOpen} itemEdit={itemEdit} />
     </div>
   );
 };

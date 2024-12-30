@@ -14,6 +14,12 @@ export interface INotice {
   formData?: FormData;
   feeShipping?: string;
   listProducts?: Product[];
+  firstName?: string;
+  lastName?: string;
+  address?: string;
+  phoneNumber?: string;
+  state?: string;
+  city?: string;
 }
 
 export interface User {

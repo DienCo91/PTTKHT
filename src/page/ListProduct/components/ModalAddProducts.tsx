@@ -1,12 +1,12 @@
+import { TYPE } from '@/page/Home/Component/Main';
+import { getProductAll, optionFilter, setProductAll } from '@/util/data';
+import { Product } from '@/util/types';
+import CloseIcon from '@mui/icons-material/Close';
 import { Autocomplete, Button, DialogActions, DialogContent, DialogTitle, TextField, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { ChangeEvent, useEffect, useState } from 'react';
-import CloseIcon from '@mui/icons-material/Close';
-import { getProductAll, optionFilter, setProductAll } from '@/util/data';
-import { TYPE } from '@/page/Home/Component/Main';
 import { toast } from 'react-toastify';
-import { Product } from '@/util/types';
 
 interface IModalAddProducts {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -40,8 +40,6 @@ const ModalAddProducts: React.FC<IModalAddProducts> = ({ open, setOpen, itemEdit
       const x = Object.keys(TYPE).find(
         k => (TYPE[k as ProductType] as ProductType) === (itemEdit.category as ProductType),
       );
-
-      console.log('', itemEdit.productPrice.split(' ')[0]);
 
       setProductName(itemEdit.productName);
       setProductDescription(itemEdit.productColor);
@@ -88,7 +86,8 @@ const ModalAddProducts: React.FC<IModalAddProducts> = ({ open, setOpen, itemEdit
       setProductAll(newProd);
       toast.success('Products edited successfully');
     } else {
-      setProductAll([{ ...item, productID: +new Date() }, ...products]);
+      const newProd = [{ ...item, productID: +new Date() }, ...products];
+      setProductAll(newProd);
       toast.success('Products added successfully');
     }
     handleClose();

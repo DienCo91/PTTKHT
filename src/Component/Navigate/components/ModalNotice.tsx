@@ -36,7 +36,8 @@ export const ModalNotice: React.FC<IModalNotice> = ({ open, toggleModalNotice, t
 
   const notifications = React.useMemo(() => {
     const notice = getNotice();
-    if (notice && user) return notice.filter(item => item.userName === user.name);
+    if (notice && user && user.role !== 'admin') return notice.filter(item => item.userName === user.name);
+    if (notice && user && user.role === 'admin') return notice;
     return [];
   }, [open]);
 

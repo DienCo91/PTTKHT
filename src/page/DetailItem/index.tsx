@@ -1,15 +1,15 @@
 import { RootState } from '@/app/store';
 import { setProducts } from '@/feature/card/cardSlice';
-import { data, getAllUser } from '@/util/data';
+import { User } from '@/feature/user/userSlice';
+import { getAllUser, getProductAll } from '@/util/data';
+import { Product } from '@/util/types';
 import { Box, Button, CardContent, Typography } from '@mui/material';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import './styles.scss';
 import { toast } from 'react-toastify';
 import CommentWithRating from './components/CommentWithRating';
-import { Product } from '@/util/types';
-import { User } from '@/feature/user/userSlice';
+import './styles.scss';
 
 const DetailItem = () => {
   const { id } = useParams();
@@ -43,7 +43,9 @@ const DetailItem = () => {
     return dispatch(setProducts([{ ...item, quantity: 1 }, ...(products || [])]));
   };
 
-  const item = data.find(item => item.productID.toString() === id) as Product;
+  const item = getProductAll().find(item => item.productID.toString() === id) as Product;
+
+  console.log('products :>> ', products);
 
   return (
     <Box
@@ -60,7 +62,7 @@ const DetailItem = () => {
           alignItems: 'center',
         }}>
         {/* Ảnh bên trái */}
-        <div className="image-container  w-[400px] h-[400px] 2xl:w-[600px] 2xl:h-[600px] rounded-sm overflow-hidden shadow-lg">
+        <div className="image-container  w-[400px] h-[400px] 3xl:w-[600px] 3xl:h-[600px] rounded-sm overflow-hidden shadow-lg">
           <img src={item?.media.link[0]} alt="Image 1" className="image image-1 object-cover w-full h-full" />
           <img src={item?.media.link[1]} alt="Image 2" className="image image-2 object-cover w-full h-full" />
         </div>

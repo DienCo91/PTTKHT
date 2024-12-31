@@ -16,7 +16,9 @@ const Item: React.FC<IItem> = ({ item, style }) => {
       className="bg-[#F4F5F7] mb-[24px] rounded-sm w-[calc(25%-20px)] mx-[10px] box-border shadow-lg hover:translate-y-[-10px] active:translate-y-[-6px] hover:shadow-[#d8eafe] transition-all duration-[0.16s] ease-in-out cursor-pointer "
       style={style}
       onClick={() => {
-        navigate(`/detail/${item.productID}`);
+        setTimeout(() => {
+          navigate(`/detail/${item.productID}`);
+        }, 800);
       }}>
       <img src={item.media.link[0]} alt="12312" style={{ height: 280, width: '100%', objectFit: 'cover' }} />
       <div className="px-[16px] py-[8px]">

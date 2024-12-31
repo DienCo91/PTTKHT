@@ -114,11 +114,13 @@ const StepperPayment = () => {
 
       setProductAll(newProducts);
 
-      navigate('/invoice', {
-        state: {
-          data: { ...notice },
-        },
-      });
+      setTimeout(() => {
+        navigate('/invoice', {
+          state: {
+            data: { ...notice },
+          },
+        });
+      }, 500);
     }
   };
 

@@ -126,7 +126,7 @@ const Invoice = () => {
       </Typography>
       {!isEdit ? (
         <Typography fontSize={20} fontWeight={500} color="text.secondary" marginY={1}>
-          Status : <Chip label={bill.status} size="small" sx={getChipStyles(bill.color)} />
+          Status : <Chip label={bill.status} size="small" sx={getChipStyles(bill?.color || '')} />
           {user?.role === 'admin' && (
             <IconButton sx={{ marginLeft: 1 }} onClick={() => setIsEdit(true)}>
               <EditIcon sx={{ width: 20, height: 20 }} />
@@ -222,7 +222,8 @@ const Invoice = () => {
           <TableBody>
             {(bill.listProducts as Product[]).map((service, index: number) => (
               <TableRow key={index}>
-                <TableCell>
+                <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
+                  <img src={service.media.link[0]} alt="img" width={48} height={48} className="mr-[20px]" />
                   <Typography variant="body1">{service.productName}</Typography>
                 </TableCell>
                 <TableCell align="right">{service.quantity}</TableCell>

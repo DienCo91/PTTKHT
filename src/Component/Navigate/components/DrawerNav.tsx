@@ -14,6 +14,8 @@ import { ModalNotice } from './ModalNotice';
 import { ModalProfile } from './ModalProfile';
 import ListIcon from '@mui/icons-material/List';
 import { useNavigate } from 'react-router-dom';
+import MoveToInboxIcon from '@mui/icons-material/MoveToInbox';
+import ModalOrder from './ModalOrder';
 
 interface IDrawerNav {
   open: boolean;
@@ -25,6 +27,7 @@ const DrawerNav: React.FC<IDrawerNav> = ({ open, toggleDrawer }) => {
   const user = useSelector((state: RootState) => state.user.user);
   const [openProfile, setOpenProfile] = useState<boolean>(false);
   const [openNotice, setOpenNotice] = useState<boolean>(false);
+  const [openOrder, setOpenOrder] = useState<boolean>(false);
 
   const toggleModalProfile = () => {
     setOpenProfile(pre => !pre);
@@ -34,17 +37,29 @@ const DrawerNav: React.FC<IDrawerNav> = ({ open, toggleDrawer }) => {
     setOpenNotice(pre => !pre);
   };
 
+  const toggleModalOrder = () => {
+    setOpenOrder(pre => !pre);
+  };
+
   const users = getAllUser();
 
   const totalNotice = useMemo(() => {
     const notices = getNotice();
 
-    return user?.role !== 'admin' ? notices.filter(e => e.userName === user?.name).length : notices.length;
+    return notices.filter(i => {
+      if (i.isComment) {
+        if (user?.name === 'admin') return i.userName !== user?.name;
+        else return i.userName === 'admin';
+      }
+      return i.userName === user?.name;
+    }).length;
   }, [user, users]);
 
   const handleClickList = () => {
-    toggleDrawer();
-    navigate('/products');
+    setTimeout(() => {
+      toggleDrawer();
+      navigate('/products');
+    }, 600);
   };
 
   return (
@@ -76,8 +91,20 @@ const DrawerNav: React.FC<IDrawerNav> = ({ open, toggleDrawer }) => {
                   <ChevronRightIcon />
                 </ListItemButton>
               </ListItem>
+              <ListItem key={'Orders'} disablePadding onClick={() => setOpenOrder(true)}>
+                <ListItemButton divider>
+                  <ListItemIcon>
+                    {/* show total notice */}
+                    <Badge color="primary">
+                      <MoveToInboxIcon />
+                    </Badge>
+                  </ListItemIcon>
+                  <ListItemText primary={'Orders'} />
+                  <ChevronRightIcon />
+                </ListItemButton>
+              </ListItem>
               {user?.role === 'admin' && (
-                <ListItem key={'ListProduct'} disablePadding onClick={handleClickList}>
+                <ListItem key={'Inventory'} disablePadding onClick={handleClickList}>
                   <ListItemButton divider>
                     <ListItemIcon>
                       {/* show total notice */}
@@ -85,7 +112,7 @@ const DrawerNav: React.FC<IDrawerNav> = ({ open, toggleDrawer }) => {
                         <ListIcon />
                       </Badge>
                     </ListItemIcon>
-                    <ListItemText primary={'List Product'} />
+                    <ListItemText primary={'Inventory'} />
                     <ChevronRightIcon />
                   </ListItemButton>
                 </ListItem>
@@ -109,6 +136,7 @@ const DrawerNav: React.FC<IDrawerNav> = ({ open, toggleDrawer }) => {
       </Drawer>
       <ModalProfile open={openProfile} toggleModalProfile={toggleModalProfile} />
       <ModalNotice open={openNotice} toggleModalNotice={toggleModalNotice} toggleDrawer={toggleDrawer} />
+      <ModalOrder open={openOrder} toggleModalOrder={toggleModalOrder} toggleDrawer={toggleDrawer} />
     </>
   );
 };

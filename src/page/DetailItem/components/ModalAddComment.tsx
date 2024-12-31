@@ -7,7 +7,7 @@ import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Comment } from './CommentWithRating';
-import { getComment, setComment } from '@/util/data';
+import { getComment, getNotice, setComment, setNotice } from '@/util/data';
 import { toast } from 'react-toastify';
 
 const style = {
@@ -46,12 +46,25 @@ const ModalAddComment: React.FC<IModalAddComment> = ({ open, setOpen, setTotalCo
     };
 
     const totalComments = getComment();
+    const notices = getNotice();
 
     setTotalComments(pre => [...pre, comment]);
 
     setComment([...totalComments, comment]);
+    setNotice([
+      {
+        message: refTextField.current?.value || '',
+        productId: id || '',
+        rating: rating,
+        userName: user?.name || '',
+        isComment: true,
+      },
+      ...notices,
+    ]);
     setRating(0);
-    setOpen(false);
+    setTimeout(() => {
+      setOpen(false);
+    }, 800);
   };
 
   return (

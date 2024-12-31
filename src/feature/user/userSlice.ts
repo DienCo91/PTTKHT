@@ -4,13 +4,13 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
 export interface INotice {
-  id: string;
-  status: string;
-  date: string;
-  color: string;
-  name: string;
-  userName: string;
-  isBill: boolean;
+  id?: string;
+  status?: string;
+  date?: string;
+  color?: string;
+  name?: string;
+  userName?: string;
+  isBill?: boolean;
   formData?: FormData;
   feeShipping?: string;
   listProducts?: Product[];
@@ -20,6 +20,10 @@ export interface INotice {
   phoneNumber?: string;
   state?: string;
   city?: string;
+  message?: string;
+  productId?: string;
+  rating?: number;
+  isComment?: boolean;
 }
 
 export interface User {

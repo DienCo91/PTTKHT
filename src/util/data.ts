@@ -90,8 +90,8 @@ export const data = [
     productLabel: 'Premium',
     media: {
       link: [
-        'https://cdn.tgdd.vn/Products/Images/44/265022/intel-nuc-m15-i7-bbc710bcuxbc1-thumb-1-600x600.jpg',
-        'https://cdn.tgdd.vn/Products/Images/44/265022/intel-nuc-m15-i7-bbc710bcuxbc1-thumb-1-600x600.jpg',
+        'https://cdn.tgdd.vn/Products/Images/44/265022/intel-nuc-m15-i7-bbc710bcuxbc1-3-2-750x500.jpg',
+        'https://cdn.tgdd.vn/Products/Images/44/265022/intel-nuc-m15-i7-bbc710bcuxbc1-3-2-750x500.jpg',
       ],
       type: 'jpg',
     },

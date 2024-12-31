@@ -24,7 +24,7 @@ const Navigate = () => {
   const user = useSelector((state: RootState) => state.user.user);
   const listProducts = useSelector((state: RootState) => state.card.listProducts);
 
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => setTimeout(() => setOpen(true), 600);
   const handleClose = () => setOpen(false);
 
   const toggleDrawer = () => {

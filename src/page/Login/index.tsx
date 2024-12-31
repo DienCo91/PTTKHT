@@ -44,7 +44,9 @@ const Login: React.FC = () => {
         if (user) {
           dispatch(setUser(user));
           if (user?.card) dispatch(setProducts(user?.card));
-          navigate('/');
+          setTimeout(() => {
+            navigate('/');
+          }, 1000);
           return;
         }
       }

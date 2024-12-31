@@ -110,7 +110,7 @@ export const ModalProfile: React.FC<IModalProfile> = ({ open, toggleModalProfile
                 Amount received
               </Typography>
               <Typography variant="body2" color="textPrimary">
-                {formattedTotal}
+                {formattedTotal||0}
               </Typography>
             </Box>
           </Box>

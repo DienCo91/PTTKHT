@@ -61,7 +61,6 @@ const DetailItem = () => {
           justifyContent: 'space-between',
           alignItems: 'center',
         }}>
-        {/* Ảnh bên trái */}
         <div className="image-container  w-[400px] h-[400px] 3xl:w-[600px] 3xl:h-[600px] rounded-sm overflow-hidden shadow-lg">
           <img src={item?.media.link[0]} alt="Image 1" className="image image-1 object-cover w-full h-full" />
           <img src={item?.media.link[1]} alt="Image 2" className="image image-2 object-cover w-full h-full" />
@@ -79,14 +78,13 @@ const DetailItem = () => {
               {item?.productName}
             </Typography>
             <Typography variant="body1" color="text.secondary" sx={{ marginY: 2 }}>
-              {`${item?.productLabel} - ${item?.productColor}`}
+              {`${item?.productLabel || 'Special'} - ${item?.productColor || 'Special'}`}
             </Typography>
             <Typography variant="h6" color="primary" sx={{ fontWeight: 'bold' }}>
               {`${item?.productPrice}`}
             </Typography>
           </CardContent>
 
-          {/* Nút Add to Cart */}
           <Box sx={{ padding: 3, display: 'flex', alignItems: 'center' }}>
             <Button variant="contained" color="primary" sx={{ fontWeight: 'bold' }} onClick={() => addCart(item)}>
               Add to Cart

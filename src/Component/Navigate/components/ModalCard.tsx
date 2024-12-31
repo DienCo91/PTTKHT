@@ -49,7 +49,7 @@ const ModalCard: React.FC<IModalCard> = ({ open, handleClose }) => {
             productNew.map(item => <ItemCard key={item?.productID} item={item} setIsRemove={setIsRemove} />)
           ) : (
             <Typography textAlign={'center'} padding={10} height={100} fontSize={16}>
-              Not Found !
+              Empty Card !
             </Typography>
           )}
         </Box>
@@ -59,8 +59,10 @@ const ModalCard: React.FC<IModalCard> = ({ open, handleClose }) => {
             fullWidth
             variant="contained"
             onClick={() => {
-              navigate('/payment', { state: { data: productNew } });
-              handleClose();
+              setTimeout(() => {
+                navigate('/payment', { state: { data: productNew } });
+                handleClose();
+              }, 600);
             }}>
             Payment
           </Button>

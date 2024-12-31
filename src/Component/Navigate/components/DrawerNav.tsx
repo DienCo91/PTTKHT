@@ -39,7 +39,7 @@ const DrawerNav: React.FC<IDrawerNav> = ({ open, toggleDrawer }) => {
   const totalNotice = useMemo(() => {
     const notices = getNotice();
 
-    return notices.filter(e => e.userName === user?.name).length;
+    return user?.role !== 'admin' ? notices.filter(e => e.userName === user?.name).length : notices.length;
   }, [user, users]);
 
   const handleClickList = () => {

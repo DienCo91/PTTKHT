@@ -5,6 +5,9 @@ import AvatarUser from './AvatarUser';
 import { Divider, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
+import { getNotice } from '@/util/data';
+import { Product } from '@/util/types';
+import { INotice } from '@/feature/user/userSlice';
 
 interface IModalProfile {
   toggleModalProfile: () => void;
@@ -25,6 +28,19 @@ const style = {
 
 export const ModalProfile: React.FC<IModalProfile> = ({ open, toggleModalProfile }) => {
   const user = useSelector((state: RootState) => state.user.user);
+
+  const total = getNotice().reduce((sum: number, item: INotice) => {
+    const x =
+      item.status !== 'Pending'
+        ? item?.listProducts?.reduce((sum: number, item: Product) => {
+            const numericValue = Number(item.productPrice.replace(/\./g, '').replace(' VND', ''));
+            return sum + numericValue * item.quantity;
+          }, 0) || 0
+        : 0;
+    return sum + x;
+  }, 0);
+
+  const formattedTotal = new Intl.NumberFormat('vi-VN').format(total || 0) + ' VND';
 
   return (
     <div>
@@ -85,6 +101,16 @@ export const ModalProfile: React.FC<IModalProfile> = ({ open, toggleModalProfile
               </Typography>
               <Typography variant="body2" color="textPrimary">
                 VN
+              </Typography>
+            </Box>
+            <Divider />
+
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', py: 1 }}>
+              <Typography variant="body2" color="textSecondary">
+                Amount received
+              </Typography>
+              <Typography variant="body2" color="textPrimary">
+                {formattedTotal}
               </Typography>
             </Box>
           </Box>

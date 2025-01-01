@@ -9,6 +9,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import './style.scss';
 import Trending from './Trending';
+import { Typography } from '@mui/material';
 
 export const TYPE = {
   shirt: 'Top | Nửa trên',
@@ -68,7 +69,9 @@ const Main = () => {
       const itemsToAdd = 4 - remainder;
       newData = [...newData, ...Array(itemsToAdd).fill(null)];
     }
-    setDataProduct(newData as Product[]);
+    setTimeout(() => {
+      setDataProduct(newData as Product[]);
+    }, 400);
   };
 
   return (
@@ -84,10 +87,14 @@ const Main = () => {
         ref={showTag}>
         <h1 className="text-[32px] font-bold mb-[20px]">Shop</h1>
         <SearchAppBar handleSearch={handleSearch} />
-        <div className="flex flex-wrap justify-start mt-[20px]">
-          {dataProduct.map((item, index) => (
-            <Item item={item} key={index} />
-          ))}
+        <div className="flex flex-wrap justify-start mt-[20px] min-h-[180px]">
+          {dataProduct.length > 0 ? (
+            dataProduct.map((item, index) => <Item item={item} key={index} />)
+          ) : (
+            <Typography textAlign={'center'} sx={{ width: '100%', mt: 2, opacity: 0.8 }}>
+              Not Found
+            </Typography>
+          )}
         </div>
       </div>
     </div>

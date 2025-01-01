@@ -61,6 +61,17 @@ const ModalOrder: React.FC<IModalOrder> = ({ open, toggleModalOrder, toggleDrawe
           notifications.map(notification => {
             if (!notification) return;
 
+            const nameOrder = (() => {
+              const products = notification.listProducts || [];
+              if (products.length === 1) {
+                return products[0].productName;
+              } else if (products.length > 1) {
+                const firstProduct = products[0].productName;
+                return `${firstProduct} and ${products.length - 1} other`;
+              }
+              return 'Không có sản phẩm';
+            })();
+
             return (
               <React.Fragment key={notification?.id || ''}>
                 <ListItem disablePadding>
@@ -69,7 +80,7 @@ const ModalOrder: React.FC<IModalOrder> = ({ open, toggleModalOrder, toggleDrawe
                       primary={
                         <>
                           <Typography variant="body1" fontWeight="bold">
-                            Order {notification?.id?.slice(13, 15)}
+                            {nameOrder}
                           </Typography>
                           <Typography variant="body2" fontWeight="thin">
                             from : {notification.userName}

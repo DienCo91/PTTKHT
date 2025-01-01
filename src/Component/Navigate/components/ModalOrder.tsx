@@ -47,8 +47,6 @@ const ModalOrder: React.FC<IModalOrder> = ({ open, toggleModalOrder, toggleDrawe
     });
   };
 
-  console.log('notifications :>> ', notifications);
-
   return (
     <Modal
       open={open}
@@ -71,7 +69,7 @@ const ModalOrder: React.FC<IModalOrder> = ({ open, toggleModalOrder, toggleDrawe
                       primary={
                         <>
                           <Typography variant="body1" fontWeight="bold">
-                            Order {notification?.id?.slice(13, 15)} {notification.isBill ? '( Paid )' : '( Unpaid )'}
+                            Order {notification?.id?.slice(13, 15)}
                           </Typography>
                           <Typography variant="body2" fontWeight="thin">
                             from : {notification.userName}

@@ -83,14 +83,19 @@ const ModalAddProducts: React.FC<IModalAddProducts> = ({ open, setOpen, itemEdit
         return e;
       });
 
-      setProductAll(newProd);
-      toast.success('Products edited successfully');
+      setTimeout(() => {
+        setProductAll(newProd);
+        toast.success('Products edited successfully');
+        handleClose();
+      }, 800);
     } else {
       const newProd = [{ ...item, productID: +new Date() }, ...products];
-      setProductAll(newProd);
-      toast.success('Products added successfully');
+      setTimeout(() => {
+        setProductAll(newProd);
+        toast.success('Products added successfully');
+        handleClose();
+      }, 800);
     }
-    handleClose();
   };
 
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {

@@ -48,21 +48,21 @@ const ModalAddComment: React.FC<IModalAddComment> = ({ open, setOpen, setTotalCo
     const totalComments = getComment();
     const notices = getNotice();
 
-    setTotalComments(pre => [...pre, comment]);
-
-    setComment([...totalComments, comment]);
-    setNotice([
-      {
-        message: refTextField.current?.value || '',
-        productId: id || '',
-        rating: rating,
-        userName: user?.name || '',
-        isComment: true,
-      },
-      ...notices,
-    ]);
-    setRating(0);
     setTimeout(() => {
+      setTotalComments(pre => [comment, ...pre]);
+
+      setComment([comment, ...totalComments]);
+      setNotice([
+        {
+          message: refTextField.current?.value || '',
+          productId: id || '',
+          rating: rating,
+          userName: user?.name || '',
+          isComment: true,
+        },
+        ...notices,
+      ]);
+      setRating(0);
       setOpen(false);
     }, 800);
   };

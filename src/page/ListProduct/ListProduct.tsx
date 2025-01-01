@@ -31,7 +31,7 @@ const ListProduct = () => {
     <div className="mt-[100px] w-[100%] flex justify-center">
       <div className="w-[80%] relative">
         <Typography variant="h5" component="h1" gutterBottom textAlign={'center'} my={6} mb={8}>
-          Product List
+          Inventory
         </Typography>
         <Button variant="contained" sx={{ position: 'absolute', top: 0, right: 0 }} onClick={() => setOpen(true)}>
           Add +

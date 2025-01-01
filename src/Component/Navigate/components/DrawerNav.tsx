@@ -51,9 +51,9 @@ const DrawerNav: React.FC<IDrawerNav> = ({ open, toggleDrawer }) => {
         if (user?.name === 'admin') return i.userName !== user?.name;
         else return i.userName === 'admin';
       }
-      return i.userName === user?.name;
+      return user?.name === 'admin' ? i : i.userName === user?.name;
     }).length;
-  }, [user, users]);
+  }, [user, users, openNotice]);
 
   const handleClickList = () => {
     setTimeout(() => {

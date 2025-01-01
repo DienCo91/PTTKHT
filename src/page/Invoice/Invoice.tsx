@@ -8,6 +8,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import {
   Box,
   Button,
+  ButtonBase,
+  ButtonGroup,
+  ButtonGroupContext,
   Chip,
   Divider,
   FormControl,
@@ -105,9 +108,11 @@ const Invoice = () => {
       }
       return notification;
     });
-    setNotice(newNotices);
-    setIsEdit(false);
-    toast.success('Edit Notification Success');
+    setTimeout(() => {
+      setNotice(newNotices);
+      setIsEdit(false);
+      toast.success('Updated Status Successfully');
+    }, 800);
   };
 
   if (!bill) return <></>;
@@ -213,22 +218,29 @@ const Invoice = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Service</TableCell>
-              <TableCell align="right">Qty</TableCell>
-              <TableCell align="right">Rate</TableCell>
-              <TableCell align="right">Line total</TableCell>
+              <TableCell>Products</TableCell>
+              <TableCell align="center">Quantity</TableCell>
+              <TableCell align="center">Rate</TableCell>
+              <TableCell align="center">Line Total</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {(bill.listProducts as Product[]).map((service, index: number) => (
-              <TableRow key={index}>
+              <TableRow
+                hover
+                key={index}
+                onClick={() => {
+                  setTimeout(() => {
+                    navigate(`/detail/${service.productID}`);
+                  }, 800);
+                }}>
                 <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
                   <img src={service.media.link[0]} alt="img" width={48} height={48} className="mr-[20px]" />
                   <Typography variant="body1">{service.productName}</Typography>
                 </TableCell>
-                <TableCell align="right">{service.quantity}</TableCell>
-                <TableCell align="right">{service.productPrice}</TableCell>
-                <TableCell align="right">{service.productPrice}</TableCell>
+                <TableCell align="center">{service.quantity}</TableCell>
+                <TableCell align="center">{service.productPrice}</TableCell>
+                <TableCell align="center">{service.productPrice}</TableCell>
               </TableRow>
             ))}
           </TableBody>

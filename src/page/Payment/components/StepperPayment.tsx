@@ -120,7 +120,7 @@ const StepperPayment = () => {
             data: { ...notice },
           },
         });
-      }, 500);
+      }, 800);
     }
   };
 

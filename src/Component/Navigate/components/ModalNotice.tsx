@@ -50,7 +50,7 @@ export const ModalNotice: React.FC<IModalNotice> = ({ open, toggleModalNotice, t
       if (user?.name === 'admin') return i.userName !== user?.name;
       else return i.userName === 'admin';
     }
-    return i.userName === user?.name;
+    return user?.name === 'admin' ? i : i.userName === user?.name;
   });
 
   return (
@@ -104,6 +104,17 @@ export const ModalNotice: React.FC<IModalNotice> = ({ open, toggleModalNotice, t
                 );
               }
 
+              const nameOrder = (() => {
+                const products = notification.listProducts || [];
+                if (products.length === 1) {
+                  return products[0].productName;
+                } else if (products.length > 1) {
+                  const firstProduct = products[0].productName;
+                  return `${firstProduct} and ${products.length - 1} other`;
+                }
+                return 'Không có sản phẩm';
+              })();
+
               return (
                 <React.Fragment key={notification?.id || ''}>
                   <ListItem disablePadding>
@@ -115,10 +126,13 @@ export const ModalNotice: React.FC<IModalNotice> = ({ open, toggleModalNotice, t
                         primary={
                           <>
                             <Typography variant="body1" fontWeight="bold">
-                              Order {notification?.id?.slice(13, 15)} {notification.isBill ? '( Paid )' : '( Unpaid )'}
+                              {nameOrder}
                             </Typography>
                             <Typography variant="body2" fontWeight="thin">
-                              from : {notification.userName}
+                              Status: {notification.isBill || notification.status === 'Finished' ? 'Paid ' : 'Unpaid'}
+                            </Typography>
+                            <Typography variant="body2" fontWeight="thin">
+                              From : {notification.userName}
                             </Typography>
                           </>
                         }

@@ -12,9 +12,11 @@ const ListProduct = () => {
 
   const handleDeleteItem = (item: Product) => {
     const newProducts = prod.filter(p => p.productID !== item.productID);
-    setProductAll(newProducts);
-    setProds(newProducts);
-    toast.success('Product deleted');
+    setTimeout(() => {
+      setProductAll(newProducts);
+      setProds(newProducts);
+      toast.success('Product deleted');
+    }, 600);
   };
 
   const handleEditItem = (item: Product) => {

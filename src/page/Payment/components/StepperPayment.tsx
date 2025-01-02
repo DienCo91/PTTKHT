@@ -10,6 +10,7 @@ import { setProducts } from '@/feature/card/cardSlice';
 import { User } from '@/feature/user/userSlice';
 import { getAllUser, getNotice, getProductAll, setNotice, setProductAll, setUser } from '@/util/data';
 import { filterProducts } from '@/util/util';
+import { addOrder } from '@/services/api';
 
 const steps = ['Shipping', 'Delivery', 'Payment'];
 const StepperPayment = () => {
@@ -81,7 +82,7 @@ const StepperPayment = () => {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   };
 
-  const handleViewInvoice = () => {
+  const handleViewInvoice = async () => {
     const users = getAllUser();
     const products = getProductAll();
     if (users) {
@@ -121,6 +122,9 @@ const StepperPayment = () => {
           },
         });
       }, 800);
+
+      const x = await addOrder(notice);
+      console.log('🚀 ~ handleViewInvoice ~ x:', x);
     }
   };
 

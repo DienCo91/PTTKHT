@@ -1,6 +1,7 @@
 import { RootState } from '@/app/store';
 import { setProducts } from '@/feature/card/cardSlice';
 import { User } from '@/feature/user/userSlice';
+import { updateCart } from '@/services/api';
 import { getAllUser, setUser } from '@/util/data';
 import { Product } from '@/util/types';
 import { Box, Button, Card, CardContent, CardMedia, Typography } from '@mui/material';
@@ -18,7 +19,7 @@ const ItemCard: React.FC<IItemCard> = ({ item, setIsRemove }) => {
 
   const [quantity, setQuantity] = useState<number>(item?.quantity);
 
-  const updateItemCard = (q: number) => {
+  const updateItemCard = async (q: number) => {
     const users = getAllUser();
     const filterUser = (users as User[]).filter(u => u.name !== user?.name);
     const currentUsers = (users as User[]).find(u => u.name === user?.name);
@@ -26,7 +27,8 @@ const ItemCard: React.FC<IItemCard> = ({ item, setIsRemove }) => {
     const cardFilter = currentUsers?.card.filter(c => c.productID !== item.productID);
 
     const currentUsersNew = { ...(currentUsers as User), card: [{ ...item, quantity: q }, ...(cardFilter || [])] };
-
+    const x = await updateCart(currentUsers);
+    console.log('🚀 ~ updateItemCard ~ x:', x);
     setUser([currentUsersNew, ...filterUser]);
     dispatch(setProducts(currentUsersNew.card || []));
   };

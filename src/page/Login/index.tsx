@@ -1,7 +1,7 @@
 import { setProducts } from '@/feature/card/cardSlice';
 import { setUser, User } from '@/feature/user/userSlice';
 import { LoginApi } from '@/services/api';
-import { setUser as setAllUser } from '@/util/data';
+import { getAllUser, setUser as setAllUser } from '@/util/data';
 import { Box, Button, Container, Link, Tab, Tabs, TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -39,11 +39,9 @@ const Login: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (tabIndex === 0) {
-      const x = await LoginApi();
-      console.log('x :>> ', x);
-      const storedUsers = JSON.parse(localStorage.getItem('users') || '[]');
-      if (storedUsers) {
-        const user = (storedUsers as User[]).find(i => i.name === formData.name && i.password === formData.password);
+      const u = getAllUser();
+      if (u) {
+        const user = (u as User[]).find(i => i.name === formData.name && i.password === formData.password);
         if (user) {
           dispatch(setUser(user));
           if (user?.card) dispatch(setProducts(user?.card));
@@ -53,6 +51,8 @@ const Login: React.FC = () => {
           return;
         }
       }
+      const x = await LoginApi(formData);
+      console.log('x :>> ', x);
       return toast.error('Login failed');
     } else {
       if (formData.password !== formData.confirmPassword) {
@@ -63,6 +63,7 @@ const Login: React.FC = () => {
       setAllUser(updatedUsers);
       toast.success('Success');
       setTabIndex(0);
+      await LoginApi(formData);
     }
   };
 

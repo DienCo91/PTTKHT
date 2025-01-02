@@ -16,6 +16,7 @@ import ListIcon from '@mui/icons-material/List';
 import { useNavigate } from 'react-router-dom';
 import MoveToInboxIcon from '@mui/icons-material/MoveToInbox';
 import ModalOrder from './ModalOrder';
+import { getNoticeApi } from '@/services/api';
 
 interface IDrawerNav {
   open: boolean;
@@ -33,8 +34,11 @@ const DrawerNav: React.FC<IDrawerNav> = ({ open, toggleDrawer }) => {
     setOpenProfile(pre => !pre);
   };
 
-  const toggleModalNotice = () => {
+  const toggleModalNotice = async () => {
     setOpenNotice(pre => !pre);
+    if (!user) return;
+    const x = await getNoticeApi(user);
+    console.log('x :>> ', x);
   };
 
   const toggleModalOrder = () => {

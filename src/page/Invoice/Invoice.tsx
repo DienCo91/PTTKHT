@@ -1,6 +1,7 @@
 import { RootState } from '@/app/store';
 import imgPaid from '@/assets/img/paid.png';
 import { INotice } from '@/feature/user/userSlice';
+import { deleteOrderId, getOrderId } from '@/services/api';
 import { getNotice, setNotice } from '@/util/data';
 import { Product } from '@/util/types';
 import { getChipStyles } from '@/util/util';
@@ -41,10 +42,16 @@ const Invoice = () => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [bill, setBill] = useState<INotice | null>(null);
 
+  const getBill = async (notice: INotice) => {
+    return await getOrderId(notice);
+  };
+
   useEffect(() => {
     const notice = getNotice().find(notice => notice.id === billPayload.id);
     if (notice) {
       setBill(notice);
+      const x = getBill(notice);
+      console.log('x :>> ', x);
     }
   }, [isEdit, billPayload]);
 
@@ -78,11 +85,13 @@ const Invoice = () => {
 
   const priceProduct = new Intl.NumberFormat('vi-VN').format(total || 0).replace(' VND', '') + ' VND';
 
-  const handleCancelOrder = () => {
+  const handleCancelOrder = async () => {
     const notices = getNotice();
     setNotice(notices.filter(n => n.id !== bill?.id));
     navigate('/');
     toast.success('Order cancelled');
+    const x = await deleteOrderId(bill as INotice);
+    console.log(x);
   };
 
   const getColor = (status: string) => {

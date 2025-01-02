@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom';
 import { Comment } from './CommentWithRating';
 import { getComment, getNotice, setComment, setNotice } from '@/util/data';
 import { toast } from 'react-toastify';
+import { addComment } from '@/services/api';
 
 const style = {
   position: 'absolute',
@@ -36,7 +37,7 @@ const ModalAddComment: React.FC<IModalAddComment> = ({ open, setOpen, setTotalCo
   const [rating, setRating] = useState<number>(0);
 
   const handleClose = () => setOpen(false);
-  const handleAddComments = () => {
+  const handleAddComments = async () => {
     if (!refTextField.current?.value) return toast.error('Please fill the input field');
     const comment: Comment = {
       message: refTextField.current?.value || '',
@@ -65,6 +66,8 @@ const ModalAddComment: React.FC<IModalAddComment> = ({ open, setOpen, setTotalCo
       setRating(0);
       setOpen(false);
     }, 800);
+    const x = await addComment(comment);
+    console.log(x);
   };
 
   return (

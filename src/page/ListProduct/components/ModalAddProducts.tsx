@@ -1,4 +1,5 @@
 import { TYPE } from '@/page/Home/Component/Main';
+import { deleteProd, editProd } from '@/services/api';
 import { getProductAll, optionFilter, setProductAll } from '@/util/data';
 import { Product } from '@/util/types';
 import CloseIcon from '@mui/icons-material/Close';
@@ -60,7 +61,7 @@ const ModalAddProducts: React.FC<IModalAddProducts> = ({ open, setOpen, itemEdit
     setOpen(false);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!type) return toast.error('Product type is required');
 
     const item = {
@@ -88,6 +89,8 @@ const ModalAddProducts: React.FC<IModalAddProducts> = ({ open, setOpen, itemEdit
         toast.success('Products edited successfully');
         handleClose();
       }, 800);
+      const x = await editProd(item);
+      console.log('🚀 ~ handleSave ~ x:', x);
     } else {
       const newProd = [{ ...item, productID: +new Date() }, ...products];
       setTimeout(() => {
@@ -95,6 +98,8 @@ const ModalAddProducts: React.FC<IModalAddProducts> = ({ open, setOpen, itemEdit
         toast.success('Products added successfully');
         handleClose();
       }, 800);
+      const x = await deleteProd(item);
+      console.log('🚀 ~ handleSave ~ x:', x);
     }
   };
 

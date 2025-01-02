@@ -10,6 +10,7 @@ import 'swiper/css/pagination';
 import './style.scss';
 import Trending from './Trending';
 import { Typography } from '@mui/material';
+import { getListProdApi } from '@/services/api';
 
 export const TYPE = {
   shirt: 'Top | Nửa trên',
@@ -50,8 +51,13 @@ const Main = () => {
     };
   }, []);
 
+  const getProduct = async (prods: Product[]) => {
+    return await getListProdApi(prods);
+  };
   useEffect(() => {
     const prods = getProductAll();
+    getProduct(prods);
+
     setDataProduct(prods);
   }, []);
 

@@ -1,6 +1,7 @@
 import { RootState } from '@/app/store';
 import { setProducts } from '@/feature/card/cardSlice';
 import { User } from '@/feature/user/userSlice';
+import { getProdId } from '@/services/api';
 import { getAllUser, getProductAll } from '@/util/data';
 import { Product } from '@/util/types';
 import { Box, Button, CardContent, Typography } from '@mui/material';
@@ -18,10 +19,19 @@ const DetailItem = () => {
   const products = useSelector((state: RootState) => state.card.listProducts);
   const user = useSelector((state: RootState) => state.user.user);
 
+  const getProd = async (id: string) => {
+    const item = getProductAll().find(item => item.productID.toString() === id) as Product;
+    if (item) {
+      const x = await getProdId(item);
+      console.log('x :>> ', x);
+    }
+  };
+
   useEffect(() => {
     if (!id) {
       navigation('/');
     }
+    getProd(id || '');
   }, [id, navigation]);
 
   const addCart = (item: Product) => {

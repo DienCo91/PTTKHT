@@ -1,6 +1,6 @@
 import { setProducts } from '@/feature/card/cardSlice';
 import { setUser, User } from '@/feature/user/userSlice';
-import { LoginApi } from '@/services/api';
+import { LoginApi, RegisterApi } from '@/services/api';
 import { getAllUser, setUser as setAllUser } from '@/util/data';
 import { Box, Button, Container, Link, Tab, Tabs, TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
@@ -63,7 +63,7 @@ const Login: React.FC = () => {
       setAllUser(updatedUsers);
       toast.success('Success');
       setTabIndex(0);
-      await LoginApi(formData);
+      await RegisterApi(formData);
     }
   };
 

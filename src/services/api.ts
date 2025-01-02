@@ -37,15 +37,15 @@ export const deleteProd = async (prod: Product) => {
 };
 
 export const getProdId = async (prod: Product) => {
-  return await axios.get(`${URL}/api/product/${prod.productID}`);
+  return await axios.get(`https://dummyjson.com/products`, { data: prod });
 };
 
 export const updateCart = async (currentUsers: User) => {
-  return await axios.put(`${URL}/api/cart`, { data: currentUsers });
+  return await axios.put(`https://dummyjson.com/carts/1`, { data: currentUsers });
 };
 
 export const getCart = async (currentUsers: User) => {
-  return await axios.get(`${URL}/api/cart`, { data: currentUsers });
+  return await axios.get(`https://dummyjson.com/carts`, { data: currentUsers });
 };
 
 export const addOrder = async (order: INotice) => {
@@ -57,11 +57,11 @@ export const getOrderId = async (order: INotice) => {
 };
 
 export const deleteOrderId = async (order: INotice) => {
-  return await axios.put(`${URL}/api/order/${order.id}`, { data: order });
+  return await axios.delete(`https://dummyjson.com/products/1`, { data: order });
 };
 
 export const getNoticeApi = async (user: User) => {
-  return await axios.get(`${URL}/api/noti/`, { data: user });
+  return await axios.get('https://dummyjson.com/todos', { data: user });
 };
 
 export const addComment = async (comment: { productId: string; rating: number; message: string; nameUser: string }) => {

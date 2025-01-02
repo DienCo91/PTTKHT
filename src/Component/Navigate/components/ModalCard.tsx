@@ -6,6 +6,7 @@ import { RootState } from '@/app/store';
 import { useNavigate } from 'react-router-dom';
 import { getAllUser } from '@/util/data';
 import { User } from '@/feature/user/userSlice';
+import { getCart } from '@/services/api';
 
 interface IModalCard {
   open: boolean;
@@ -22,7 +23,8 @@ const ModalCard: React.FC<IModalCard> = ({ open, handleClose }) => {
 
   const productNew = useMemo(() => {
     const currentUsers = (users as User[]).find(u => u.name === user?.name);
-
+    const x = getCart(currentUsers as User);
+    console.log('🚀 ~ productNew ~ x :', x);
     return currentUsers?.card || [];
   }, [user, users, listProducts, isRemove]);
 

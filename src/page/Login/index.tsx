@@ -1,5 +1,6 @@
 import { setProducts } from '@/feature/card/cardSlice';
 import { setUser, User } from '@/feature/user/userSlice';
+import { LoginApi } from '@/services/api';
 import { setUser as setAllUser } from '@/util/data';
 import { Box, Button, Container, Link, Tab, Tabs, TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
@@ -35,9 +36,11 @@ const Login: React.FC = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (tabIndex === 0) {
+      const x = await LoginApi();
+      console.log('x :>> ', x);
       const storedUsers = JSON.parse(localStorage.getItem('users') || '[]');
       if (storedUsers) {
         const user = (storedUsers as User[]).find(i => i.name === formData.name && i.password === formData.password);
